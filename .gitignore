@@ -1,0 +1,3 @@
+/app/*.pyc
+/app/*py2.py3-none-any.whl
+/app/__pycache__/

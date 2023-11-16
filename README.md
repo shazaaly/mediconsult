@@ -1,6 +1,6 @@
 # Mediconsult
 
-![MediConsult](./static/mediconsult_single_logo.png)
+![MediConsult](./static/mediconsult_.png)
 
 ## Table of Contents
 
@@ -10,7 +10,7 @@
 	- [Features](#features)
 	- [Installation](#installation)
 		- [Example Installation Commands](#example-installation-commands)
-- [MediConsult](#mediconsult-1)
+- [MediConsult All Rights Reserved!](#mediconsult-all-rights-reserved)
 
 ## Overview
 
@@ -62,4 +62,4 @@ source venv/bin/activate   # For Unix/Linux
 pip install -r requirements.txt
 python app.py
 ```
-# MediConsult
+# MediConsult All Rights Reserved!

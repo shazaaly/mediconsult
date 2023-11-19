@@ -1,12 +1,13 @@
-from flask import render_template,flash, redirect, url_for
+from flask import render_template,flash, redirect, url_for, request
 from forms import LoginForm
 from app import login
 from app.models import User
-from flask_login import current_user, login_user, logout_user
+from flask_login import current_user, login_user, logout_user, login_required
+from werkzeug import urls
 from app import app
 
 
-
+@login_required
 @app.route('/')
 @app.route('/index')
 def index():
@@ -45,7 +46,10 @@ def login():
             flash('Invalid username or password')
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
-        return redirect(url_for('index'))
+        next_page = request.args.get('next')
+        if not next_page or urls.url_parse(next_page) != '':
+            return redirect(url_for('index'))
+        return redirect(url_for(next_page))
     return render_template('login.html', form=form, title="Login")
 
 

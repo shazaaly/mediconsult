@@ -1,5 +1,5 @@
 # Ignore the venv directory
-/venv/
+venv/
 
 # Ignore the .env file
 .env

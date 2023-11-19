@@ -11,7 +11,12 @@
 		<nav>
 			<ul>
 				<li><a  href="{{ url_for('index')}}">Home</a></li>
+
+				{% if current_user.is_anonymous %}
 				<li><a href="{{ url_for('login')}}">Login</a></li>
+				{% else %}
+				<li><a href="{{ url_for('logout')}}">Log Out</a></li>
+				{% endif %}
 			</ul>
 		</nav>
 	</header>

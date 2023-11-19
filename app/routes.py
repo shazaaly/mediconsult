@@ -2,7 +2,7 @@ from flask import render_template,flash, redirect, url_for
 from forms import LoginForm
 from app import login
 from app.models import User
-from flask_login import current_user, login_user
+from flask_login import current_user, login_user, logout_user
 from app import app
 
 
@@ -33,6 +33,7 @@ def load_user(id):
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
+    """check if the user is logged in or not: is_authenticated"""
     if current_user.is_authenticated:
         return redirect(url_for('index'))
 
@@ -46,6 +47,14 @@ def login():
         login_user(user, remember=form.remember_me.data)
         return redirect(url_for('index'))
     return render_template('login.html', form=form, title="Login")
+
+
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+
+
 
 from app import routes
 

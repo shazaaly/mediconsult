@@ -3,13 +3,13 @@ from forms import LoginForm
 from app import login
 from app.models import User
 from flask_login import current_user, login_user, logout_user, login_required
-from werkzeug import urls
+from urllib.parse import urlsplit
 from app import app
 
 
-@login_required
 @app.route('/')
 @app.route('/index')
+@login_required
 def index():
     posts = [
         {
@@ -21,8 +21,7 @@ def index():
             'body': 'The Avengers movie was so cool!'
         }
     ]
-    user = {'username': 'Shaza'}
-    return render_template('index.html', username=user['username'], title="MediConsult", posts=posts)
+    return render_template('index.html', title="MediConsult", posts=posts)
 
 
 
@@ -42,12 +41,12 @@ def login():
 
     if form.validate_on_submit():
         user=User.query.filter_by(username=form.username.data).first()
-        if user is None or not user.check_password(form.password.data):
+        if user is None and not user.check_password(form.password.data):
             flash('Invalid username or password')
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
-        if not next_page or urls.url_parse(next_page) != '':
+        if not next_page or urlsplit(next_page) != '':
             return redirect(url_for('index'))
         return redirect(url_for(next_page))
     return render_template('login.html', form=form, title="Login")
@@ -57,6 +56,12 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+
+@app.route("/register")
+def register():
+    """create a new user
+    """
 
 
 

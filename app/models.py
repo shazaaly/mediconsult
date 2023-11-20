@@ -1,6 +1,8 @@
 from app import db
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
+from libgravatar import Gravatar
+
 
 from flask_login import UserMixin
 
@@ -16,6 +18,20 @@ class User(UserMixin,db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+    def avatar(self, size=120):
+        gravatar = Gravatar(self.email)
+        # Generate a Gravatar URL with customized settings
+        gravatar_url_custom = gravatar.get_image(
+            size=size,
+            default='identicon',
+            force_default=True,
+            rating='pg',
+            filetype_extension=True,
+            use_ssl=True
+            )
+        return gravatar_url_custom
+
 
 
     def __repr__(self):

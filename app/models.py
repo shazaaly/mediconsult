@@ -11,6 +11,11 @@ class User(UserMixin,db.Model):
     username = db.Column(db.String(65), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
+    bio = db.Column(db.String(200))
+    medical_degree = db.Column(db.String(100))
+    speciality = db.Column(db.String(100))
+    licenses = db.Column(db.String(200))
+    last_seen = db.Column(db.DateTime, default=datetime.utcnow)
     cases = db.relationship('Case', backref='author', lazy="dynamic")
 
     def set_password(self, password):

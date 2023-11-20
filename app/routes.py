@@ -5,6 +5,7 @@ from app import login, db
 from app.models import User
 from flask_login import current_user, login_user, logout_user, login_required
 from urllib.parse import urlsplit
+from datetime import datetime
 from app import app
 
 
@@ -85,6 +86,13 @@ def user(username):
         {'author':  user, 'body':'Test post 1'}
     ]
     return render_template('user.html', user=user, cases=cases)
+
+
+@app.before_request
+def before_request():
+    if current_user.is_authenticated:
+        current_user.last_seen = datetime.utcnow()
+        db.session.commit()
 
 
 from app import routes

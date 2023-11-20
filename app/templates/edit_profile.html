@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1> Edit Profile </h1>
+
+<form action="", method="post">
+	{{ form.hidden_tag() }}
+	<p>
+	{{ form.username.label }} </br>
+	{{ form.username }} </br>
+	{% for error in form.username.errors %}
+	<span style="color: red;"> [{{ error }}]  </span>
+	{% endfor %}
+	</p>
+
+
+	<p>
+		{{ form.bio.label }} </br>
+		{{ form.bio(cols=50, rows=50)}} </br>
+		{% for error in form.bio.errors %}
+		<span style="color: red;"> [{{ error }}]  </span>
+		{% endfor %}
+	</p>
+
+	<p>
+		{{ form.medical_degree.label }} </br>
+		{{ form.medical_degree }} </br>
+		{% for error in form.medical_degree.errors %}
+		<span style="color: red;"> [{{ error }}]  </span>
+		{% endfor %}
+	</p>
+
+	<p>
+		{{ form.speciality.label }} </br>
+		{{ form.speciality }} </br>
+		{% for error in form.speciality.errors %}
+		<span style="color: red;"> [{{ error }}]  </span>
+		{% endfor %}
+	</p>
+
+	<p>
+		{{ form.licenses.label }} </br>
+		{{ form.licenses }} </br>
+		{% for error in form.licenses.errors %}
+		<span style="color: red;"> [{{ error }}]  </span>
+		{% endfor %}
+	</p>
+	<p> {{ form.submit() }} </p>
+
+
+</form>
+
+
+
+{% endblock %}

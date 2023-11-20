@@ -42,7 +42,7 @@ def login():
 
     if form.validate_on_submit():
         user=User.query.filter_by(username=form.username.data).first()
-        if user is None or not user.check_password(form.password.data):
+        if user is None or not user.password_hash or not user.check_password(form.password.data):
             flash('Invalid username or password')
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
@@ -75,6 +75,16 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
+
+
+@app.route("/user/<username>")
+@login_required
+def user(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    cases = [
+        {'author':  user, 'body':'Test post 1'}
+    ]
+    return render_template('user.html', user=user, cases=cases)
 
 
 from app import routes

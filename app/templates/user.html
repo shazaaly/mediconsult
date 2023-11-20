@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+username: {{ user.username }} </hr>
+cases
+{% for case in cases %}
+<h1>{{case.title}}</h1>
+<p> {{case.author.username}} says {{case.body}}</p>
+
+
+{% endfor %}
+{% endblock %}

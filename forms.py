@@ -30,10 +30,59 @@ class RegisterForm(FlaskForm):
 
 
 class EditProfileForm(FlaskForm):
+    """
+    A form for editing user profile information.
+
+    Attributes:
+        username (StringField): The username field.
+        bio (TextAreaField): The bio field.
+        medical_degree (StringField): The medical degree field.
+        speciality (StringField): The speciality field.
+        licenses (StringField): The licenses field.
+        submit (SubmitField): The submit button.
+
+    Methods:
+        __init__(self, original_username): Initializes the EditProfileForm object.
+        validate_username(self, username): Validates the username field.
+
+    """
+
     username = StringField('Username', validators=[DataRequired()])
     bio = TextAreaField('bio')
     medical_degree = StringField('medical_degree')
     speciality = StringField('speciality')
     licenses = StringField('licenses')
     submit = SubmitField('Submit')
+
+    def __init__(self, original_username,*args, **kwargs):
+        """
+        Initialize the EditProfileForm object.
+
+        Args:
+            original_username (str): The original username.
+
+        Returns:
+            None
+        """
+        super(EditProfileForm, self).__init__(*args, **kwargs)
+        self.original_username = original_username
+
+    def validate_username(self, username):
+        """
+        Validate the username field.
+
+        Args:
+            username (str): The username to be validated.
+
+        Raises:
+            ValidationError: If the username is already taken.
+
+        Returns:
+            None
+        """
+        if username.data != self.original_username:
+            user = User.query.filter_by(username=self.username.data).first()
+            if user is not None:
+                raise ValidationError("Please use a different username.")
+
 

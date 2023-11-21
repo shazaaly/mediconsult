@@ -6,6 +6,13 @@ from libgravatar import Gravatar
 
 from flask_login import UserMixin
 
+
+"""ِAssosiation Table for secondary"""
+followers= db.Table('followers',
+    db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
+    db.Column('followed_id', db.Integer, db.ForeignKey('user.id'))
+)
+
 class User(UserMixin,db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(65), index=True, unique=True)
@@ -17,12 +24,36 @@ class User(UserMixin,db.Model):
     licenses = db.Column(db.String(200))
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
     cases = db.relationship('Case', backref='author', lazy="dynamic")
+    followed = db.relationship(
+        'User',
+        secondary=followers,
+        primaryjoin=(followers.c.follower_id == id),
+        secondaryjoin=(followers.c.followed_id == id),
+        backref=db.backref('followers',lazy='dynamic'),
+        lazy='dynamic'
+        )
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+    def is_following(self, user):
+        """check if user is already following another user """
+        return self.followed.filter(
+            followers.c.followed_id == user.id).count() > 0
+
+    def follow(self, user):
+        if not self.is_following(user):
+            self.followed.append(user)
+
+    def unfollow(self, user):
+        """unfollow user"""
+        if self.is_following(user):
+            self.followed.remove(user)
+
+
 
     def avatar(self, size=120):
         gravatar = Gravatar(self.email)

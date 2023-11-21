@@ -6,6 +6,7 @@ from app.models import User
 from flask_login import current_user, login_user, logout_user, login_required
 from urllib.parse import urlsplit
 from datetime import datetime
+from forms import EditProfileForm
 from app import app
 
 
@@ -86,6 +87,34 @@ def user(username):
         {'author':  user, 'body':'Test post 1'}
     ]
     return render_template('user.html', user=user, cases=cases)
+
+
+
+@app.route("/edit_profile", methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+    form = EditProfileForm()
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        current_user.bio = form.bio.data
+        current_user.medical_degree = form.medical_degree.data
+        current_user.speciality = form.speciality.data
+        current_user.licenses = form.licenses.data
+        db.session.commit()
+        flash("Your Profile Has Been Updated Successfully")
+        return redirect(url_for('edit_profile'))
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.bio.data = current_user.bio
+        form.medical_degree.data = current_user.medical_degree
+        form.speciality.data = current_user.speciality
+        form.licenses.data = current_user.licenses
+
+    return render_template('edit_profile.html', form=form, title="Edit Profile")
+
+
+
+
 
 
 @app.before_request

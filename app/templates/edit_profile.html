@@ -17,7 +17,7 @@
 
 	<p>
 		{{ form.bio.label }} </br>
-		{{ form.bio(cols=50, rows=50)}} </br>
+		{{ form.bio(cols=50, rows=4)}} </br>
 		{% for error in form.bio.errors %}
 		<span style="color: red;"> [{{ error }}]  </span>
 		{% endfor %}

@@ -24,6 +24,8 @@ class User(UserMixin,db.Model):
     licenses = db.Column(db.String(200))
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
     cases = db.relationship('Case', backref='author', lazy="dynamic")
+    #a query returns the list of followed users, which as you already know, it would be user.followed.all()
+    #get followed users:
     followed = db.relationship(
         'User',
         secondary=followers,
@@ -53,7 +55,18 @@ class User(UserMixin,db.Model):
         if self.is_following(user):
             self.followed.remove(user)
 
+    def followed_cases(self):
+        """return cases of followed users"""
+        followed = Case.query.join(
+            followers, (followers.c.followed_id == Case.user_id)
+        ).filter(
+            followers.c.follower_id == self.id
+        ).order_by(
+            Case.timestamp.desc()
+        )
 
+        own = Case.query.filter_by(user_id=self.id)
+        return followed.union(own).order_by(Case.timestamp.desc())
 
     def avatar(self, size=120):
         gravatar = Gravatar(self.email)

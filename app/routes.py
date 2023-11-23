@@ -86,7 +86,8 @@ def user(username):
     cases = [
         {'author':  user, 'body':'Test post 1'}
     ]
-    return render_template('user.html', user=user, cases=cases)
+    form=EmptyForm()
+    return render_template('user.html', user=user, cases=cases, form=form)
 
 
 
@@ -112,19 +113,18 @@ def edit_profile():
 
     return render_template('edit_profile.html', form=form, title="Edit Profile")
 
-@app.route("/follow/<username>", methods=['POST'])
+@app.route('/follow/<username>', methods=['POST'])
 @login_required
 def follow(username):
-    """follow  a user"""
     form = EmptyForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=username).first()
         if user is None:
-            flash("User {} does not exist".format(username))
+            flash('User {} not found.'.format(username))
             return redirect(url_for('index'))
         if user == current_user:
-            flash("You cannot follow yourself")
-            return redirect(url_for('index'))
+            flash('You cannot follow yourself!')
+            return redirect(url_for('user', username=username))
         current_user.follow(user)
         db.session.commit()
         flash('You are following {}!'.format(username))
@@ -150,7 +150,6 @@ def unfollow(username):
         return redirect(url_for('user', username=username))
     else:
         return redirect(url_for('index'))
-
 @app.before_request
 def before_request():
     if current_user.is_authenticated:

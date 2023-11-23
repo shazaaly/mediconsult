@@ -19,20 +19,19 @@
 	<p><a href="{{ url_for('edit_profile') }}">Edit your profile</a></p>
 
 	{% elif not current_user.is_following(user) %}
-	<form action="url_for('/follow', username=user.username)" method="post">
-		{{ form.hidden_tag() }}
-		{{ form.submit(value='Follow')}}
-
-
-	</form>
+	<p>
+		<form action="{{ url_for('follow', username=user.username) }}" method="post">
+			{{ form.hidden_tag() }}
+			{{ form.submit(value='Follow') }}
+		</form>
+	</p>
 	{% else %}
-	<form action="url_for('/unfollow', username=user.username)" method="post">
-		{{ form.hidden_tag() }}
-		{{ form.submit(value='Unfollow')}}
-
-
-	</form>
-
+	<p>
+		<form action="{{ url_for('unfollow', username=user.username) }}" method="post">
+			{{ form.hidden_tag() }}
+			{{ form.submit(value='Unfollow') }}
+		</form>
+	</p>
 	{% endif %}
 	<h2>Cases</h2>
 	{% for case in cases %}

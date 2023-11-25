@@ -16,6 +16,12 @@ def index():
     cases = Case.query.all()
     return render_template('index.html', title="MediConsult", cases=cases)
 
+@app.route("/show_case/<case_id>")
+def show_case(case_id):
+    case = Case.query.get_or_404(case_id)
+    if case:
+        return render_template('show_case.html', title=case.title, case=case)
+
 
 
 @login.user_loader

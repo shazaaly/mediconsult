@@ -12,3 +12,9 @@ class Config(object):
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     ADMINS = ['shaza.aly@gmail.com']
+
+    # images
+    IMAGE_SUPLOAD_FOLDER = os.path.join(basedir, 'uploads/images')
+    LABS_UPLOAD_FOLDER = os.path.join(basedir, 'uploads/labs')
+
+

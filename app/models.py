@@ -90,9 +90,27 @@ class Case(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(140))
-    body = db.Column(db.Text)
+    patient_age = db.Column(db.String(20))
+    patient_sex = db.Column(db.String(10))
+    chief_complaint = db.Column(db.Text)
+    medical_history = db.Column(db.Text)
+    current_medications = db.Column(db.Text)
+    # Add columns for image and lab files
+    image_files = db.Column(db.String(255))  # Store file paths for images
+    lab_files = db.Column(db.String(255))  # Store file paths for lab files
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
+    def get_images(self):
+        """get images of case """
+        if self.image_files:
+            images = image_files.split(",")
+            for image in images:
+                return image
+        else:
+            return []
+    def get_lab_files(self):
+        return self.lab_files.split(",") if self.lab_files else []
+
     def __repr__(self) -> str:
-        return '<Case Title {} - Body {}>'.format(self.title, self.body)
+        return '<Case Title {} - chief_complaint {}>'.format(self.title, self.chief_complaint)

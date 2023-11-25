@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, MultipleFileField
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 from app.models import User
 
@@ -88,3 +88,19 @@ class EditProfileForm(FlaskForm):
 
 class EmptyForm(FlaskForm):
     submit = SubmitField('Submit')
+
+class CaseForm(FlaskForm):
+    """ form to add and submit a new case"""
+    title = StringField('Title', validators=[DataRequired()])
+    patient_age = StringField('Patient Age', validators=[DataRequired()])
+    patient_sex = StringField('Patient Sex', validators=[DataRequired()])
+    chief_complaint = TextAreaField('Chief Complaint', validators=[DataRequired()])
+    medical_history = StringField('Medical History', validators=[DataRequired()])
+    current_medications = StringField('Current Medications', validators=[DataRequired()])
+    # Use MultipleFileField for multiple image files
+    image_files = MultipleFileField('Upload Image Files')
+    lab_files = MultipleFileField('Upload Lab Files')
+    submit = SubmitField('Submit')
+
+
+

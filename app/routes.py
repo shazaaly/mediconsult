@@ -1,4 +1,5 @@
-from flask import render_template,flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request
+import os
 from forms import LoginForm, RegisterForm, CaseForm, EditProfileForm, EmptyForm
 from app import login, db
 from app.models import User, Case
@@ -165,8 +166,6 @@ def submit_case():
         db.session.commit()
         # Save uploaded files to the file system
         try:
-
-
             image_files = form.image_files.data
             image_files_paths = []
 
@@ -174,9 +173,11 @@ def submit_case():
                 if image_file:
                     filename = secure_filename(image_file.filename)
                     filepath = os.path.join(app.config['IMAGE_SUPLOAD_FOLDER'], filename)
+                    relative_path = os.path.join('images', filename)
+
                     image_file.save(filepath)
-                    image_files_paths.append(filepath)
-                    case.image_files =",".join(image_files_paths)
+                    image_files_paths.append(relative_path)
+            case.image_files =",".join(image_files_paths)
 
             lab_files = form.lab_files.data
             labe_files_path = []
@@ -184,9 +185,10 @@ def submit_case():
                 if lab_file:
                     filename = secure_filename(lab_file.filename)
                     filepath = os.path.join(app.config['LABS_UPLOAD_FOLDER'], filename)
+                    relative_path = os.path.join('labs', filename)
                     lab_file.save(filepath)
-                    labe_files_path.append(filepath)
-                    case.lab_files =",".join(labe_files_path)
+                    labe_files_path.append(relative_path)
+            case.lab_files =",".join(labe_files_path)
 
             db.session.commit()
             flash('Case submitted successfully!', 'success')

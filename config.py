@@ -14,7 +14,7 @@ class Config(object):
     ADMINS = ['shaza.aly@gmail.com']
 
     # images
-    IMAGE_SUPLOAD_FOLDER = os.path.join(basedir, 'uploads/images')
-    LABS_UPLOAD_FOLDER = os.path.join(basedir, 'uploads/labs')
+    IMAGE_SUPLOAD_FOLDER = os.path.join(basedir, 'static/images')
+    LABS_UPLOAD_FOLDER = os.path.join(basedir, 'static/labs')
 
 

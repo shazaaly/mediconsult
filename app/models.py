@@ -86,6 +86,8 @@ class User(UserMixin,db.Model):
     def __repr__(self):
         return '<user {}>'.format(self.username)
 
+
+
 class Case(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)

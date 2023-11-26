@@ -13,8 +13,10 @@
 {% if case.get_images() %}
   <h2>Images:</h2>
   <ul>
-    {% for image_path  in case.get_images() %}
-      <li><img src="{{ image_path }}" alt="Case Image"></li>
+    {% for image_path in case.get_images() %}
+      <li>
+        <img src="{{ url_for('static', filename=image_path) }}" alt="Image">
+      </li>
     {% endfor %}
   </ul>
 {% endif %}
@@ -24,11 +26,12 @@
   <h2>Lab Files:</h2>
   <ul>
     {% for lab_file_path in case.get_lab_files() %}
-      <li><a href="{{ lab_file_path }}" target="_blank">View Lab File</a></li>
+      <li>
+        <a href="{{ url_for('static', filename=lab_file_path) }}">Download PDF</a>
+      </li>
     {% endfor %}
   </ul>
 {% endif %}
-
 <p>Created At: {{ case.timestamp }}</p>
 <!-- Add more details as needed -->
 

@@ -103,12 +103,8 @@ class Case(db.Model):
 
     def get_images(self):
         """get images of case """
-        if self.image_files:
-            images = image_files.split(",")
-            for image in images:
-                return image
-        else:
-            return []
+        return self.image_files.split(',') if self.image_files else []
+
     def get_lab_files(self):
         return self.lab_files.split(",") if self.lab_files else []
 

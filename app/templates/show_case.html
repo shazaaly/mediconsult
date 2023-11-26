@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>{{ case.title }}</h1>
+<p>Author: {{ case.author.username }}</p>
+<p>Patient Age: {{ case.patient_age }}</p>
+<p>Patient Sex: {{ case.patient_sex }}</p>
+<p>Chief Complaint: {{ case.chief_complaint }}</p>
+<p>Medical History: {{ case.medical_history }}</p>
+<p>Current Medications: {{ case.current_medications }}</p>
+
+<!-- Display Images -->
+{% if case.get_images() %}
+  <h2>Images:</h2>
+  <ul>
+    {% for image_path  in case.get_images() %}
+      <li><img src="{{ image_path }}" alt="Case Image"></li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+<!-- Display Lab Files -->
+{% if case.get_lab_files() %}
+  <h2>Lab Files:</h2>
+  <ul>
+    {% for lab_file_path in case.get_lab_files() %}
+      <li><a href="{{ lab_file_path }}" target="_blank">View Lab File</a></li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+<p>Created At: {{ case.timestamp }}</p>
+<!-- Add more details as needed -->
+
+<!-- Link to go back to the index page -->
+<p><a href="{{ url_for('index') }}">Back to Cases</a></p>
+
+{% endblock %}

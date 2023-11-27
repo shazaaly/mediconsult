@@ -1,0 +1,45 @@
+/* Reset some default styles */
+body,
+ul,
+li,
+p {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: Arial, sans-serif;
+	line-height: 1.6;
+}
+
+/* Header styles */
+header {
+	background-color: #f8f9fa;
+	padding: 20px 0;
+}
+
+nav ul {
+	list-style-type: none;
+	display: flex;
+	justify-content: space-around;
+}
+
+nav a {
+	text-decoration: none;
+	color: #333;
+}
+
+/* Main content styles */
+main {
+	padding: 20px;
+}
+
+/* Footer styles */
+footer {
+	background-color: #f8f9fa;
+	text-align: center;
+	padding: 20px 0;
+	position: fixed;
+	width: 100%;
+	bottom: 0;
+}

@@ -160,10 +160,9 @@ def submit_case():
             chief_complaint=form.chief_complaint.data,
             medical_history=form.medical_history.data,
             current_medications=form.current_medications.data,
+             user_id=current_user.id
             # Add other fields as needed
         )
-        db.session.add(case)
-        db.session.commit()
         # Save uploaded files to the file system
         try:
             image_files = form.image_files.data
@@ -173,7 +172,7 @@ def submit_case():
                 if image_file:
                     filename = secure_filename(image_file.filename)
                     filepath = os.path.join(app.config['IMAGE_SUPLOAD_FOLDER'], filename)
-                    relative_path = os.path.join('images', filename)
+                    relative_path = filename
 
                     image_file.save(filepath)
                     image_files_paths.append(relative_path)
@@ -185,11 +184,11 @@ def submit_case():
                 if lab_file:
                     filename = secure_filename(lab_file.filename)
                     filepath = os.path.join(app.config['LABS_UPLOAD_FOLDER'], filename)
-                    relative_path = os.path.join('labs', filename)
+                    relative_path = filename
                     lab_file.save(filepath)
                     labe_files_path.append(relative_path)
             case.lab_files =",".join(labe_files_path)
-
+            db.session.add(case)
             db.session.commit()
             flash('Case submitted successfully!', 'success')
 

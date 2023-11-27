@@ -5,7 +5,8 @@
 <p>Do you want to add a case? <a href="{{ url_for('submit_case') }}">Create a Case</a></p>
 
     {% for case in cases %}
-    <div><p>{{ case.author }}  Case Title: <b>{{ case.title }}</b></p></div>
+    <div><p>{{ case.author.username if case.author }}</p></div>
+    Case Title: <b>{{ case.title }}</b></p></div>
     <div><p>{{ case.chief_complaint }}</p></div>
     <div><p>{{ case.created_at }}</p></div>
     <div><p>

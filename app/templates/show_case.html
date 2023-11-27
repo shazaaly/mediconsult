@@ -27,7 +27,7 @@
   <ul>
     {% for lab_file_path in case.get_lab_files() %}
       <li>
-        <a href="{{ url_for('static', filename=lab_file_path) }}">Download PDF</a>
+        <a href="{{ url_for('static', filename=lab_file_path) }}" >Download PDF</a>
       </li>
     {% endfor %}
   </ul>

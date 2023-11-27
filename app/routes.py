@@ -1,12 +1,16 @@
 from flask import render_template, flash, redirect, url_for, request
 import os
-from forms import LoginForm, RegisterForm, CaseForm, EditProfileForm, EmptyForm
+from forms import LoginForm, RegisterForm, CaseForm, EditProfileForm, EmptyForm, ResetPasswordRequestForm, ResetPasswordForm
 from app import login, db
 from app.models import User, Case
 from flask_login import current_user, login_user, logout_user, login_required
 from urllib.parse import urlsplit
 from datetime import datetime
 from werkzeug.utils import secure_filename
+from flask_mail import Message
+from app.email import send_password_reset_email
+
+
 from app import app
 
 
@@ -28,7 +32,7 @@ def index():
 def explore():
     page = request.args.get('page', 1, type=int)
 
-    cases = Case.query.order_by(Case.timestamp.desc()).paginate(page, app.config['CASES_PER_PAGE'], False)
+    cases = Case.query.order_by(Case.timestamp.desc()).paginate(page=page, per_page=app.config['CASES_PER_PAGE'], error_out=False)
     return render_template('index.html', title='Explore', cases=cases.items)
 
 
@@ -88,6 +92,40 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
+@app.route('/reset_password', methods=['GET', 'POST'])
+def reset_password_form():
+    """send password reset email(user)
+    """
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+
+    form = ResetPasswordRequestForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user:
+            send_password_reset_email(user) # send_password_reset_email helper fx
+        flash('Check your email for the instructions to reset your password')
+        return redirect(url_for('login'))
+    return render_template('reset_password_request.html',
+                           title='Reset Password', form=form)
+
+
+
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    user = User.verify_user_token(token)
+    #print(user)
+    if not user:
+        return redirect(url_for('index'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        user.set_password(form.password.data)
+        db.session.commit()
+        flash('Your password has been reset.')
+        return redirect(url_for('login'))
+    return render_template('reset_password.html', form=form)
 
 
 @app.route("/user/<username>")
@@ -210,6 +248,16 @@ def submit_case():
         except Exception as e:
             flash(f"Error: {str(e)}", 'error')
     return render_template('submit_case.html', form=form, title="submit medical case")
+
+
+
+
+@app.route('/send_email')
+def send_email():
+    msg = Message('Hello', recipients=['recipient@example.com'])
+    msg.body = 'This is a test email from Flask-Mail'
+    mail.send(msg)
+    return 'Email sent!'
 
 
 @app.before_request

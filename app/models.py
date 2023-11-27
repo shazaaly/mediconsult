@@ -1,10 +1,11 @@
+from flask import current_app
 from app import db
 from datetime import datetime
+from time import time
 from werkzeug.security import generate_password_hash, check_password_hash
 from libgravatar import Gravatar
-
-
 from flask_login import UserMixin
+import jwt
 
 
 """ِAssosiation Table for secondary"""
@@ -80,7 +81,25 @@ class User(UserMixin,db.Model):
             )
         return gravatar_url_custom
 
+    # JWT token generation
+    def generate_token(self, expires_in=600):
+        """generate  token"""
+        return jwt.encode(
+            {
+                'reset_password': self.id,
+                'exp': time() + expires_in
+            },
+            current_app.config['SECRET_KEY'],
+            algorithm='HS256')
+    #@staticmethod
+    def verify_user_token(token):
+        try:
+            id = jwt.decode(token, app.config['SECRET_KEY'], algorithm='HS256')['reset_password']
 
+        except:
+            return
+        user = User.query.get(id)
+        return user
 
     def __repr__(self):
         return '<user {}>'.format(self.username)

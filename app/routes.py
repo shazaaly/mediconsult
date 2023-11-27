@@ -14,16 +14,30 @@ from app import app
 @app.route('/index')
 @login_required
 def index():
-    cases = Case.query.all()
-    return render_template('index.html', title="MediConsult", cases=cases)
+    # cases = Case.query.all()
+    page = request.args.get('page', 1, type=int)
+    print(page)
+    print( app.config['CASES_PER_PAGE'])
+    # cases = current_user.followed_cases().paginate(page, app.config['CASES_PER_PAGE'], False)
+    cases = current_user.followed_cases().paginate(
+        page=page, per_page=app.config['CASES_PER_PAGE'], error_out=False)
+    return render_template('index.html', title="MediConsult", cases=cases.items)
+
+@app.route('/explore')
+@login_required
+def explore():
+    page = request.args.get('page', 1, type=int)
+
+    cases = Case.query.order_by(Case.timestamp.desc()).paginate(page, app.config['CASES_PER_PAGE'], False)
+    return render_template('index.html', title='Explore', cases=cases.items)
+
+
 
 @app.route("/show_case/<case_id>")
 def show_case(case_id):
     case = Case.query.get_or_404(case_id)
     if case:
         return render_template('show_case.html', title=case.title, case=case)
-
-
 
 @login.user_loader
 def load_user(id):
@@ -191,11 +205,11 @@ def submit_case():
             db.session.add(case)
             db.session.commit()
             flash('Case submitted successfully!', 'success')
+            return redirect(url_for('index'))
 
         except Exception as e:
             flash(f"Error: {str(e)}", 'error')
     return render_template('submit_case.html', form=form, title="submit medical case")
-
 
 
 @app.before_request

@@ -19,7 +19,7 @@
 				<li><a href="{{ url_for('login')}}">Login</a></li>
 				{% else %}
 				<li><a href="{{ url_for('user', username=current_user.username)}}">Profile</a></li>
-
+				<li><a href="{{ url_for('explore') }}">Explore Cases</a></li>
 				<li><a href="{{ url_for('logout')}}">Log Out</a></li>
 				{% endif %}
 			</ul>

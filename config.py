@@ -12,6 +12,8 @@ class Config(object):
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     ADMINS = ['shaza.aly@gmail.com']
+    CASES_PER_PAGE = 3
+
 
     # images
     IMAGE_SUPLOAD_FOLDER = os.path.join(basedir, 'app', 'static')

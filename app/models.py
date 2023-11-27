@@ -13,6 +13,7 @@ followers= db.Table('followers',
     db.Column('followed_id', db.Integer, db.ForeignKey('user.id'))
 )
 
+
 class User(UserMixin,db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(65), index=True, unique=True)
@@ -59,11 +60,9 @@ class User(UserMixin,db.Model):
         """return cases of followed users"""
         followed = Case.query.join(
             followers, (followers.c.followed_id == Case.user_id)
-        ).filter(
-            followers.c.follower_id == self.id
-        ).order_by(
-            Case.timestamp.desc()
-        )
+        ).join(
+            User, (User.id == followers.c.follower_id)
+        ).filter(User.id == self.id)
 
         own = Case.query.filter_by(user_id=self.id)
         return followed.union(own).order_by(Case.timestamp.desc())

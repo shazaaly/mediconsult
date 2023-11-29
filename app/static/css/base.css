@@ -8,10 +8,11 @@ p {
 }
 
 body {
+	margin: 0 !important;
 	font-family: 'Lato', sans-serif;
 	line-height: 1.6;
 	font-size: 14px;
-	min-height: 100vh;
+	height: 100vh;
 }
 
 .row {
@@ -48,4 +49,35 @@ body {
 nav li a {
 	font-weight: 600;
 	font-size: 18px;
+}
+
+li {
+	list-style-type: none;
+}
+
+.footer {
+	margin-top: 1rem;
+}
+
+.footer-area li a {
+	display: inline-block;
+	padding: 10px 20px;
+	background-color: #15803d;
+	border-radius: 25px;
+	text-decoration: none;
+	transition: background-color 0.3s ease;
+	font-size: 14px;
+	color: white !important;
+	margin-left: 5px;
+	margin-top: 6px;
+}
+
+.footer-area>li.light a {
+	color: #15803d !important;
+	background-color: #e2ece5;
+}
+
+.footer-area li a:hover {
+	background-color: white;
+	color: #15803d !important;
 }

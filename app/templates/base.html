@@ -6,7 +6,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 {% endblock %}
 
 {% block title %}
@@ -62,5 +62,30 @@
         {# application content needs to be provided in the app_content block #}
         {% block app_content %}{% endblock %}
     </div>
+
+
+
+    {% block footer %}
+    <nav class="navbar navbar-default footer">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{{ url_for('index') }}" style="color:green; margin-left:5px">MediConsult</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('explore') }}">Explore</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right footer-area">
+                    <li class="light"><a href="mailto:shaza.aly@gmail.com">Email Me</a></li>
+                    <li><a href="https://wa.me/201062794773">WhatsApp Me</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 {% endblock %}
+{% endblock %}
+
+
+
 

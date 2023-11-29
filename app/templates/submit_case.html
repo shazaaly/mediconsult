@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% block app_content %}
 
   <h1>{{ title }}</h1>
 
@@ -20,7 +20,7 @@
     <br>
 
     <label for="chief_complaint">Chief Complaint:</label>
-    {{ form.chief_complaint(class="form-control", placeholder="Enter chief complaint") }}
+    {{ form.chief_complaint(class="form-control", placeholder="Enter chief complaint", style="margin-bottom: 20px;") }}
     <br>
 
     <label for="medical_history">Medical History:</label>
@@ -39,7 +39,7 @@
     {{ form.lab_files(class="form-control", multiple="multiple") }}
     <br>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-success">Submit</button>
   </form>
 
 {% endblock %}

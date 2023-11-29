@@ -22,10 +22,10 @@ def index():
     page = request.args.get('page', 1, type=int)
     print(page)
     print( app.config['CASES_PER_PAGE'])
-    # cases = current_user.followed_cases().paginate(page, app.config['CASES_PER_PAGE'], False)
     cases = current_user.followed_cases().paginate(
         page=page, per_page=app.config['CASES_PER_PAGE'], error_out=False)
-    return render_template('index.html', title="MediConsult", cases=cases.items)
+    #return render_template('index.html', title="MediConsult", cases=cases.items)
+    return render_template('index.html', title="MediConsult")
 
 @app.route('/explore')
 @login_required
@@ -33,7 +33,7 @@ def explore():
     page = request.args.get('page', 1, type=int)
 
     cases = Case.query.order_by(Case.timestamp.desc()).paginate(page=page, per_page=app.config['CASES_PER_PAGE'], error_out=False)
-    return render_template('index.html', title='Explore', cases=cases.items)
+    return render_template('explore.html', title='Explore', cases=cases.items)
 
 
 

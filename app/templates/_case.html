@@ -1,7 +1,17 @@
 
-<table>
+<table class="table table-hover">
 	<tr valign="top">
-		<td><img src="{{ case.author.avatar(36) }}"></td>
-		<td>{{ case.author.username }} says:<br>{{ case.body }}</td>
+		<td width="70px">
+			<a href= "{{ url_for('user', username=case.author.username) }}"  >
+			</a>
+			<img src="{{ case.author.avatar(70) }}">
+		</td>
+		<td>
+			<a href="{{ url_for('user', username=case.author.username) }}">
+				{{ case.author.username }}
+			</a>
+			<br/>
+			{{ case.chief_complaint }}
+		</td>
 	</tr>
 </table>

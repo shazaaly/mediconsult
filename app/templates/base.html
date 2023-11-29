@@ -1,5 +1,14 @@
 {% extends 'bootstrap/base.html' %}
 
+{% block head %}
+    {{ super() }}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+
+{% endblock %}
+
 {% block title %}
     {% if title %}{{ title }} - Microblog{% else %}Welcome to Microblog{% endif %}
 {% endblock %}
@@ -14,9 +23,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ url_for('index') }}">MediConsult </a>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <a  href="{{ url_for('index') }}">
+                    <img id="logo" src="{{ url_for('static', filename='images/mediconsult_.png') }}">
+
+                </a>
+
+                <a class="navbar-brand" href="{{ url_for('index') }}" style="color:green; margin-left:5px">MediConsult</a>            </div>
+
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url_for('index') }}">Home</a></li>
                     <li><a href="{{ url_for('explore') }}">Explore</a></li>
@@ -48,3 +63,4 @@
         {% block app_content %}{% endblock %}
     </div>
 {% endblock %}
+

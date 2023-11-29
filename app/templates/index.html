@@ -1,18 +1,61 @@
 {% extends "base.html" %}
-{% block content %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+
+{% endblock %}
+
+{% block app_content %}
 
 <h1>Hi, {{ current_user.username }}!</h1>
-<p>Do you want to add a case? <a href="{{ url_for('submit_case') }}">Create a Case</a></p>
+<h3>Do you want to add a case? <a href="{{ url_for('submit_case') }}"> Create a Case</a></h3>
 
-    {% for case in cases %}
-    <div><p>{{ case.author.username if case.author }}</p></div>
-    Case Title: <b>{{ case.title }}</b></p></div>
-    <div><p>{{ case.chief_complaint }}</p></div>
-    <div><p>{{ case.created_at }}</p></div>
-    <div><p>
-        <a href="{{ url_for('show_case', case_id=case.id) }}">View Case</a>
-    </p></div>
 
-    {% endfor %}
+<div class="container cards-wrapper mt-5">
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card text-white bg-success p-4">
+                <div class="card-body p-4">
+                    <h3 class="card-title">Join our Community</h3>
+                    <h4 class="card-subtitle mb-2">Empower Medical Progression</h4>
+                    <p class="card-text">Subscribe to connect with fellow professionals and share your medical cases. Together, we can make a difference.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card text-white bg-info p-4">
+                <div class="card-body">
+                    <h3 class="card-title">Collaborate and Grow</h3>
+                    <h4 class="card-subtitle mb-2">Community-driven Learning</h4>
+                    <p class="card-text">Be part of a vibrant community where knowledge is shared and collaboration leads to professional growth.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card text-white bg-warning p-4">
+                <div class="card-body">
+                    <h3 class="card-title">Inspire and Be Inspired</h3>
+                    <h4 class="card-subtitle mb-2">Motivate Others</h4>
+                    <p class="card-text">Share your experiences and motivate others in the medical field. Your story can inspire positive change.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="back_image"> </div>
+    </div>
+    <div class="col-md-4">
+        <p>loewm   </p>
+    </div>
+</div>
+
 
 {% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+
+{% endblock %}
+
+{% block app_content %}
+
+{% for case in cases %}
+    <div><p>{{ case.author.username if case.author }}</p></div>
+    Case Title: <b>{{ case.title }}</b></p></div>
+    <div><p>{{ case.chief_complaint }}</p></div>
+    <div><p>{{ case.created_at }}</p></div>
+    <div><p>
+        <a href="{{ url_for('show_case', case_id=case.id) }}">View Case</a>
+    </p></div>
+
+    {% endfor %}
+
+
+
+{% endblock %}

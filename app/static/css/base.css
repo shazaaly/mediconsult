@@ -8,38 +8,44 @@ p {
 }
 
 body {
-	font-family: Arial, sans-serif;
+	font-family: 'Lato', sans-serif;
 	line-height: 1.6;
+	font-size: 14px;
+	min-height: 100vh;
 }
 
-/* Header styles */
-header {
-	background-color: #f8f9fa;
-	padding: 20px 0;
-}
-
-nav ul {
-	list-style-type: none;
+.row {
 	display: flex;
-	justify-content: space-around;
+	flex-wrap: wrap;
 }
 
-nav a {
-	text-decoration: none;
-	color: #333;
+.card {
+	border: 1px solid transparent;
+	border-radius: 10px;
+	padding: 4px 22px;
+	font-size: 1.1em;
+	height: 20%;
+	min-height: 212px;
+	flex: 1 0 auto;
 }
 
-/* Main content styles */
-main {
-	padding: 20px;
+.cards-wrapper {
+	margin-top: 2rem;
 }
 
-/* Footer styles */
-footer {
-	background-color: #f8f9fa;
-	text-align: center;
-	padding: 20px 0;
-	position: fixed;
-	width: 100%;
-	bottom: 0;
+#logo {
+	width: 10%;
+	position: absolute;
+	top: -24px;
+	left: 20px;
+	margin-right: 3px;
+}
+
+.navbar-brand {
+	margin-left: 3px;
+}
+
+nav li a {
+	font-weight: 600;
+	font-size: 18px;
 }

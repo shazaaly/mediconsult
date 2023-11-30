@@ -1,0 +1,39 @@
+.back_image {
+	background-image: url(../images/banner.jpg);
+	background-size: cover;
+	width: 200vw;
+	border: solid 1px transparent;
+	height: 100vh;
+	position: absolute;
+	top: -19px;
+}
+
+.back_image::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #20ADC6;
+	opacity: 0.5;
+}
+
+.login_text {
+	font-family: 'Lato', sans-serif;
+	color: white;
+	position: absolute;
+	top: 18rem;
+	padding: 2rem;
+	font-size: xx-large;
+	text-align: left;
+	left: 4rem;
+}
+
+
+
+div:nth-child(2)>div>div>p:nth-child(2) {
+	position: absolute;
+	top: -10rem;
+	letter-spacing: 1rem;
+}

@@ -1,8 +1,23 @@
-{% extends 'base.html' %}
 
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block head %}
+    {{ super() }}
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Marck+Script&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+
+{% endblock %}
 
 {% block app_content %}
-<h1> Sign In </h1>
+
+<div class="row flex flex column">
+	<div class="col-md-6">
+		<h1> Sign In </h1>
+
 
 <form method="post" action="" novalidate>
 	{{ form.hidden_tag() }}
@@ -47,4 +62,30 @@
 	<a href="{{ url_for('reset_password_form') }}">Click to Reset It</a>
 </p>
 
+	</div>
+
+	<div class="col-md-6">
+		<div class="back_image">
+			<div class="login_text">
+				<p style="color:white;">
+					<p>MediConsult.. </p>
+
+					<p>Welcome Back! </p>
+					<p>Where Medical Minds Unite!
+					</p>
+					<p>
+						Bridging Expertise, Empowering Care
+
+					</p>
+
+				</p>
+			</div>
+		</div>
+	</div>
+
+</div>
+
 {% endblock %}
+
+
+

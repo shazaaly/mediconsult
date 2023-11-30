@@ -16,14 +16,11 @@ from app import app
 
 @app.route('/')
 @app.route('/index')
-@login_required
 def index():
     # cases = Case.query.all()
-    page = request.args.get('page', 1, type=int)
-    print(page)
-    print( app.config['CASES_PER_PAGE'])
-    cases = current_user.followed_cases().paginate(
-        page=page, per_page=app.config['CASES_PER_PAGE'], error_out=False)
+    # page = request.args.get('page', 1, type=int)
+    #cases = current_user.followed_cases().paginate(
+        #page=page, per_page=app.config['CASES_PER_PAGE'], error_out=False)
     #return render_template('index.html', title="MediConsult", cases=cases.items)
     return render_template('index.html', title="MediConsult")
 

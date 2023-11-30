@@ -1,6 +1,6 @@
 # Mediconsult
 
-![MediConsult](./static/images/mediconsult_.png)
+![MediConsult](./app/static/images/mediconsult_.png)
 
 ## Table of Contents
 

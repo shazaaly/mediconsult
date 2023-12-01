@@ -44,7 +44,7 @@
 <p class="case-date">Published: {{ case.timestamp.strftime('%B %d, %Y') }}</p>
 
 <div class="comment_form">
-  <form method="post">
+  <form action="{{ url_for('submit_comment', case_id=case.id) }}" method="post">
     <label for="comments">Add a comment ?</label>
   {{ form.text(class="form-control") }}
   <br>
@@ -54,5 +54,9 @@
   </form>
   <br>
 </div>
+
+{% for comment in comments %}
+    <p>{{ comment.author.username }}: {{ comment.text }}</p>
+{% endfor %}
 
 {% endblock %}

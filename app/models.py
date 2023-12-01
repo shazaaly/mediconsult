@@ -121,6 +121,9 @@ class Case(db.Model):
     lab_files = db.Column(db.String(255))  # Store file paths for lab files
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    comments = db.relationship('Comment', backref='answers', lazy='dynamic')
+
+
     def get_images(self):
         """get images of case """
         return self.image_files.split(',') if self.image_files else []

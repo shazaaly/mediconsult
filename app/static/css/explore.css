@@ -38,3 +38,10 @@
 .case-link a:hover {
 	text-decoration: none;
 }
+
+.preview {
+	height: auto;
+	width: 20%;
+	min-height: 200px;
+	min-width: 342px;
+}

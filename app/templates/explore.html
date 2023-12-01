@@ -7,19 +7,39 @@
 {% endblock %}
 
 {% block app_content %}
+
 {% for case in cases %}
-    <div class="case-block">
 
-        <p class="case-title">Case Title: <b>{{ case.title }}</b></p>
-        <p class="case-title">Case Question: <b>{{ case.question }}</b></p>
 
-        <p class="case-complaint">Case :{{ case.chief_complaint }}</p>
-        <p class="case-author"><span>Author: </span>{{ case.author.username if case.author }}</p>
+<div class="case-block">
 
-        <p class="case-date">Published at :{{ case.timestamp.strftime('%B %d, %Y') }}</p>
-        <p class="case-link">
-            <a class="btn" style="background-color:#124877;" href="{{ url_for('show_case', case_id=case.id) }}">View Case</a>
-        </p>
+    <div class="row">
+        <div class="col-md-8">
+            <p class="case-title">Case Title: <b>{{ case.title }}</b></p>
+            <p class="case-title">Case Question: <b>{{ case.question }}</b></p>
+            <p class="case-complaint">Case: {{ case.chief_complaint }}</p>
+            <p class="case-author"><span>Author: </span>{{ case.author.username if case.author }}</p>
+            <p class="case-date">Published at: {{ case.timestamp.strftime('%B %d, %Y') }}</p>
+            <p class="case-link">
+                <a class="btn" style="background-color:#124877;" href="{{ url_for('show_case', case_id=case.id) }}">View Case</a>
+            </p>
+
+
+        </div>
+        <div class="col-md-4">
+            {% if case.image_files %}
+                <img class="preview" src="{{ url_for('static', filename=case.image_files.split(',')[0]) }}" >
+            {% endif %}
+
+
+        </div>
+
+
+
     </div>
+
+
+
+</div>
 {% endfor %}
 {% endblock %}

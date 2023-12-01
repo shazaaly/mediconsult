@@ -130,3 +130,11 @@ class Case(db.Model):
 
     def __repr__(self) -> str:
         return '<Case Title {} - chief_complaint {}>'.format(self.title, self.chief_complaint)
+
+    class Comment(db.Model):
+        id = db.Column(db.Integer, primary_key=True)
+        text = db.Column(db.Text)
+        timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+        user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+        case_id = db.Column(db.Integer, db.ForeignKey('case.id'))
+

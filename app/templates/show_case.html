@@ -43,4 +43,16 @@
 <p><a class="case-back-link" href="{{ url_for('explore') }}">Back to Cases</a></p>
 <p class="case-date">Published: {{ case.timestamp.strftime('%B %d, %Y') }}</p>
 
+<div class="comment_form">
+  <form method="post">
+    <label for="comments">Add a comment ?</label>
+  {{ form.text(class="form-control") }}
+  <br>
+  <button type="submit" class="btn btn-success">Submit</button>
+
+
+  </form>
+  <br>
+</div>
+
 {% endblock %}

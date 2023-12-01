@@ -13,7 +13,7 @@
         <img src="{{ user.avatar(128) }}">
     </div>
     <div class="user-details">
-        <h1>User: {{ user.username }}</h1>
+        <h1>{{ user.username }}</h1>
         {% if user.bio %} <p> Bio: {{ user.bio }} </p> {% endif %}
         {% if user.medical_degree %} <p> Degree: {{ user.medical_degree }} </p> {% endif %}
         {% if user.speciality %} <p> Speciality: {{ user.speciality }}  </p>{% endif %}

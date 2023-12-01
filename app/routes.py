@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for, request
 import os
-from forms import LoginForm, RegisterForm, CaseForm, EditProfileForm, EmptyForm, ResetPasswordRequestForm, ResetPasswordForm
+from forms import LoginForm, RegisterForm, CaseForm, EditProfileForm, EmptyForm, ResetPasswordRequestForm, ResetPasswordForm, CommentForm
 from app import login, db
 from app.models import User, Case
 from flask_login import current_user, login_user, logout_user, login_required
@@ -38,8 +38,9 @@ def explore():
 @app.route("/show_case/<case_id>")
 def show_case(case_id):
     case = Case.query.get_or_404(case_id)
+    form = CommentForm()
     if case:
-        return render_template('show_case.html', title=case.title, case=case)
+        return render_template('show_case.html', title=case.title, case=case, form=form)
 
 @login.user_loader
 def load_user(id):

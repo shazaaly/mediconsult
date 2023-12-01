@@ -3,6 +3,7 @@ import os
 from forms import LoginForm, RegisterForm, CaseForm, EditProfileForm, EmptyForm, ResetPasswordRequestForm, ResetPasswordForm, CommentForm
 from app import login, db
 from app.models import User, Case
+from app.models import Comment
 from flask_login import current_user, login_user, logout_user, login_required
 from urllib.parse import urlsplit
 from datetime import datetime
@@ -36,7 +37,7 @@ def explore():
 @app.route("/show_case/<case_id>")
 def show_case(case_id):
     case = Case.query.get_or_404(case_id)
-    comments = case.answers.order_by(Comment.timestamp.desc())
+    comments = case.comments.order_by(Comment.timestamp.desc())
     form = CommentForm()
     if case:
         return render_template('show_case.html', title=case.title, case=case, form=form, comments=comments)

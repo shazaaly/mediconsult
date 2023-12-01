@@ -121,7 +121,7 @@ class Case(db.Model):
     lab_files = db.Column(db.String(255))  # Store file paths for lab files
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    comments = db.relationship('Comment', backref='answers', lazy='dynamic')
+    comments = db.relationship('Comment', backref='case', lazy='dynamic')
 
 
     def get_images(self):
@@ -140,4 +140,8 @@ class Case(db.Model):
         timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
         user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
         case_id = db.Column(db.Integer, db.ForeignKey('case.id'))
+
+    def __repr__(self) -> str:
+        return '<comment  {} >'.format(self.text)
+
 

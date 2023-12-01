@@ -1,41 +1,50 @@
 {% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}">
+{% endblock %}
 
 {% block app_content %}
 
-	<table>
-		<tr valign="top">
-			<td><img src="{{ user.avatar(128) }}"></td>
-			<td><h1>User: {{ user.username }}</h1></td>
-			{% if user.bio %} <p> Bio: {{ user.bio }} </p> {% endif %}
-			{% if user.medical_degree %} <p> Degree: {{ user.medical_degree }} </p> {% endif %}
-			{% if user.speciality %} <p> Speciality: {{ user.speciality }}  </p>{% endif %}
-			{% if user.licenses %} <p> Licenses: {{ user.licenses }}</p>  {% endif %}
-			{% if user.last_seen %} <p> Last Seen:  {{ user.last_seen }} </p> {% endif %}
-		</tr>
-	</table>
-	</hr>
+<div class="user-profile">
+    <div class="user-avatar">
+        <img src="{{ user.avatar(128) }}">
+    </div>
+    <div class="user-details">
+        <h1>User: {{ user.username }}</h1>
+        {% if user.bio %} <p> Bio: {{ user.bio }} </p> {% endif %}
+        {% if user.medical_degree %} <p> Degree: {{ user.medical_degree }} </p> {% endif %}
+        {% if user.speciality %} <p> Speciality: {{ user.speciality }}  </p>{% endif %}
+        {% if user.licenses %} <p> Licenses: {{ user.licenses }}</p>  {% endif %}
+        {% if user.last_seen %} <p> Last Seen:  {{ user.last_seen }} </p> {% endif %}
+    </div>
+</div>
 
-	{% if user == current_user %}
-	<p><a href="{{ url_for('edit_profile') }}">Edit your profile</a></p>
+<hr>
 
-	{% elif not current_user.is_following(user) %}
-	<p>
-		<form action="{{ url_for('follow', username=user.username) }}" method="post">
-			{{ form.hidden_tag() }}
-			{{ form.submit(value='Follow') }}
-		</form>
-	</p>
-	{% else %}
-	<p>
-		<form action="{{ url_for('unfollow', username=user.username) }}" method="post">
-			{{ form.hidden_tag() }}
-			{{ form.submit(value='Unfollow') }}
-		</form>
-	</p>
-	{% endif %}
-	<h2>Cases</h2>
-	{% for case in cases %}
-		{% include '_case.html' %}
+{% if user == current_user %}
+<p><a class="edit-profile-link" href="{{ url_for('edit_profile') }}">Edit your profile</a></p>
 
-	{% endfor %}
+{% elif not current_user.is_following(user) %}
+<p>
+    <form action="{{ url_for('follow', username=user.username) }}" method="post">
+        {{ form.hidden_tag() }}
+        {{ form.submit(value='Follow') }}
+    </form>
+</p>
+{% else %}
+<p>
+    <form action="{{ url_for('unfollow', username=user.username) }}" method="post">
+        {{ form.hidden_tag() }}
+        {{ form.submit(value='Unfollow') }}
+    </form>
+</p>
+{% endif %}
+<h4>Cases You Shared : </h4>
+{% for case in current_user.cases %}
+    {% include '_case.html' %}
+
+{% endfor %}
 {% endblock %}

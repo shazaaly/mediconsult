@@ -110,6 +110,7 @@ class Case(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(140))
+    question = db.Column(db.String(140))
     patient_age = db.Column(db.String(20))
     patient_sex = db.Column(db.String(10))
     chief_complaint = db.Column(db.Text)
@@ -120,7 +121,6 @@ class Case(db.Model):
     lab_files = db.Column(db.String(255))  # Store file paths for lab files
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-
     def get_images(self):
         """get images of case """
         return self.image_files.split(',') if self.image_files else []

@@ -1,0 +1,67 @@
+.case-card {
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 20px;
+	margin-bottom: 20px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+
+}
+
+.case-card span {
+	font-size: 18px;
+
+}
+
+.case-title {
+	font-size: 22px;
+	color: #0f61a2;
+	margin-bottom: 10px;
+}
+
+.case-author,
+.case-detail {
+	font-size: 16px;
+	color: #848d95;
+}
+
+.case-subtitle {
+	font-size: 18px;
+	color: #3c4146;
+	margin-top: 20px;
+}
+
+.case-files {
+	list-style: none;
+	padding: 0;
+}
+
+.case-file-link {
+	display: block;
+	background-color: #f6f6f6;
+	border: 1px solid #ccc;
+	padding: 10px;
+	color: #07c;
+	text-decoration: none;
+	margin-bottom: 10px;
+	border-radius: 3px;
+}
+
+.case-file-link:hover {
+	background-color: #f1f1f1;
+}
+
+.case-date {
+	font-size: 12px;
+	color: #848d95;
+	margin-top: 20px;
+}
+
+.case-back-link {
+	color: #07c;
+	text-decoration: none;
+	font-size: 14px;
+}
+
+.case-back-link:hover {
+	text-decoration: underline;
+}

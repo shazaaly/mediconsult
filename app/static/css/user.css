@@ -1,0 +1,34 @@
+.user-profile {
+	display: flex;
+	margin-bottom: 20px;
+}
+
+.user-avatar {
+	margin-right: 20px;
+}
+
+.user-avatar img {
+	border-radius: 50%;
+	width: 128px;
+	height: 128px;
+}
+
+.user-details h1 {
+	font-size: 24px;
+	color: #3c4146;
+	margin-bottom: 10px;
+}
+
+.user-details p {
+	font-size: 14px;
+	color: #848d95;
+}
+
+.edit-profile-link {
+	color: #07c;
+	text-decoration: none;
+}
+
+.edit-profile-link:hover {
+	text-decoration: underline;
+}

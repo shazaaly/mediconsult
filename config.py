@@ -13,7 +13,7 @@ class Config(object):
     MAIL_PASSWORD = 'pntp bgtk ibyq fkot'
     ADMIN='shaza.aly@gmail.com'
     # pagination
-    CASES_PER_PAGE = 3
+    CASES_PER_PAGE = 10
 
     # images and files
     IMAGE_SUPLOAD_FOLDER = os.path.join(basedir, 'app', 'static')

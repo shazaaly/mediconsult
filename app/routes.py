@@ -34,6 +34,7 @@ def explore():
 
 
 
+
 @app.route("/show_case/<case_id>")
 def show_case(case_id):
     case = Case.query.get_or_404(case_id)
@@ -129,9 +130,7 @@ def reset_password(token):
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
-    cases = [
-        {'author':  user, 'body':'Test post 1'}
-    ]
+    cases = Case.query.filter_by(user_id = current_user.id)
     form=EmptyForm()
     return render_template('user.html', user=user, cases=cases, form=form)
 

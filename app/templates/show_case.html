@@ -1,21 +1,28 @@
 {% extends "base.html" %}
-{% block content %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/show_case.css') }}">
+{% endblock %}
 
-<h1>{{ case.title }}</h1>
-<p>Author: {{ case.author.username }}</p>
-<p>Patient Age: {{ case.patient_age }}</p>
-<p>Patient Sex: {{ case.patient_sex }}</p>
-<p>Chief Complaint: {{ case.chief_complaint }}</p>
-<p>Medical History: {{ case.medical_history }}</p>
-<p>Current Medications: {{ case.current_medications }}</p>
+{% block app_content %}
 
+<div class="case-card">
+  <h1 class="case-title"><span>Case</span> : {{ case.title }}</h1>
+  <p class="case-author" style="color:#FF4D71;"><span>Author: </span>{{ case.author.username }}</p>
+  <p class="case-detail""><span style="color:#124877;padding:2px;">Patient Age: </span>{{ case.patient_age }}</p>
+  <p class="case-detail""><span style="color:#124877;padding:2px;">Patient Sex: </span>{{ case.patient_sex }}</p>
+  <p class="case-detail""><span style="color:#124877;padding:2px;">Chief Complaint:</span>{{ case.chief_complaint }}</p>
+  <p class="case-detail""><span style="color:#124877;padding:2px;">Medical History:</span>{{ case.medical_history }}</p>
+  <p class="case-detail""><span style="color:#124877;padding:2px;">Current Medications: </span>{{ case.current_medications }}</p>
+</div>
 <!-- Display Images -->
 {% if case.get_images() %}
-  <h2>Images:</h2>
-  <ul>
+  <h2 class="case-subtitle">Images:</h2>
+  <ul class="case-images">
     {% for image_path in case.get_images() %}
       <li>
-        <img src="{{ url_for('static', filename=image_path) }}" alt="Image">
+        <img class="case-image" src="{{ url_for('static', filename=image_path) }}" alt="Image">
       </li>
     {% endfor %}
   </ul>
@@ -23,19 +30,17 @@
 
 <!-- Display Lab Files -->
 {% if case.get_lab_files() %}
-  <h2>Lab Files:</h2>
-  <ul>
+  <h2 class="case-subtitle">Lab Files:</h2>
+  <ul class="case-files">
     {% for lab_file_path in case.get_lab_files() %}
       <li>
-        <a href="{{ url_for('static', filename=lab_file_path) }}" >Download PDF</a>
+        <a class="case-file-link" href="{{ url_for('static', filename=lab_file_path) }}" >Download PDF</a>
       </li>
     {% endfor %}
   </ul>
 {% endif %}
-<p>Created At: {{ case.timestamp }}</p>
-<!-- Add more details as needed -->
 
-<!-- Link to go back to the index page -->
-<p><a href="{{ url_for('index') }}">Back to Cases</a></p>
+<p><a class="case-back-link" href="{{ url_for('explore') }}">Back to Cases</a></p>
+<p class="case-date">Published: {{ case.timestamp.strftime('%B %d, %Y') }}</p>
 
 {% endblock %}

@@ -1,17 +1,20 @@
-
 <table class="table table-hover">
-	<tr valign="top">
-		<td width="70px">
-			<a href= "{{ url_for('user', username=case.author.username) }}"  >
-			</a>
-			<img src="{{ case.author.avatar(70) }}">
-		</td>
-		<td>
-			<a href="{{ url_for('user', username=case.author.username) }}">
-				{{ case.author.username }}
-			</a>
-			<br/>
-			{{ case.chief_complaint }}
-		</td>
-	</tr>
+    <tr valign="top">
+        <td width="70px">
+            <a href= "{{ url_for('user', username=case.author.username) }}"  >
+            </a>
+
+            {% for case in cases %}
+                <span class="badge"> {{ loop.index }} </span>
+            {% endfor %}
+
+        </td>
+        <td>
+            <a href="{{ url_for('user', username=case.author.username) }}">
+                {{ case.timestamp.strftime('%B %d, %Y') }}
+            </a>
+            <br/>
+            {{ case.title }}
+        </td>
+    </tr>
 </table>

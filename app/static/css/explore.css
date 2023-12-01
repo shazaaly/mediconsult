@@ -1,0 +1,40 @@
+.case-block {
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	padding: 10px;
+	margin: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.case-author {
+	font-weight: bold;
+	color: #333;
+}
+
+.case-title {
+	font-weight: bold;
+	color: #333;
+	margin-top: 10px;
+}
+
+.case-complaint {
+	margin-top: 10px;
+	font-weight: bold;
+	color: #333;
+}
+
+.case-date {
+	font-size: 0.8em;
+	color: #999;
+	margin-top: 10px;
+}
+
+.case-link a {
+	color: white;
+	text-decoration: none;
+}
+
+.case-link a:hover {
+	text-decoration: none;
+}

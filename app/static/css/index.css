@@ -1,3 +1,25 @@
+#wallpaper {
+	background-image: url('../images//banner.jpg');
+	height: 100vh;
+	background-repeat: no-repeat;
+	background-size: cover;
+
+	margin-top: -8rem;
+
+
+}
+
+#wallpaper::before {
+	content: "";
+	position: absolute;
+	top: 5rem;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.6);
+
+}
+
 .back_image {
 	background-image: url(../images/banner.jpg);
 	width: 100%;

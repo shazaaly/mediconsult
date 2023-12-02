@@ -14,6 +14,17 @@ followers= db.Table('followers',
     db.Column('followed_id', db.Integer, db.ForeignKey('user.id'))
 )
 
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.Text)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    case_id = db.Column(db.Integer, db.ForeignKey('case.id'))
+def __repr__(self) -> str:
+        return '<comment  {} >'.format(self.text)
+
+
+
 
 class User(UserMixin,db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -36,6 +47,7 @@ class User(UserMixin,db.Model):
         backref=db.backref('followers',lazy='dynamic'),
         lazy='dynamic'
         )
+    comments= db.relationship('Comment', backref='author', lazy='dynamic')
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -133,15 +145,3 @@ class Case(db.Model):
 
     def __repr__(self) -> str:
         return '<Case Title {} - chief_complaint {}>'.format(self.title, self.chief_complaint)
-
-    class Comment(db.Model):
-        id = db.Column(db.Integer, primary_key=True)
-        text = db.Column(db.Text)
-        timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-        user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-        case_id = db.Column(db.Integer, db.ForeignKey('case.id'))
-
-    def __repr__(self) -> str:
-        return '<comment  {} >'.format(self.text)
-
-

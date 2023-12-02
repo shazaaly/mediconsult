@@ -34,12 +34,23 @@ def explore():
     return render_template('explore.html', title='Explore', cases=cases.items)
 
 
-@app.route("/show_case/<case_id>")
+@app.route("/show_case/<case_id>", methods=['GET', 'POST'])
 def show_case(case_id):
     case = Case.query.get_or_404(case_id)
     comments = case.comments.order_by(Comment.timestamp.desc())
     form = CommentForm()
     if case:
+        if form.validate_on_submit():
+            comment = Comment(
+                text=form.text.data,
+                user_id=current_user.id,
+                case_id=case.id
+            )
+            db.session.add(comment)
+            db.session.commit()
+            flash('Your Comment Added')
+            return redirect(url_for('show_case', case_id=case.id))
+        comments = case.comments.order_by(Comment.timestamp.desc())
         return render_template('show_case.html', title=case.title, case=case, form=form, comments=comments)
 
 @login.user_loader
@@ -257,19 +268,19 @@ def send_email():
     return 'Email sent!'
 
 
-@app.route('/submit_comment/<int:case_id>', methods=['GET','POST'])
-@login_required
-def submit_comment(case_id):
-    form = CommentForm()
-    case= Case.query.filter_by(id=case_id).first()
-    if case:
+# @app.route('/submit_comment/<int:case_id>', methods=['GET','POST'])
+# @login_required
+# def submit_comment(case_id):
+#     form = CommentForm()
+#     case= Case.query.filter_by(id=case_id).first()
+#     if case:
 
-        if form.validate_on_submit():
-            comment = Comment(text=form.text.data, author=current_user, case_id=case_id)
-            db.session.add(comment)
-            db.session.commit()
-            flash('Your comment has been published.')
-        return redirect(url_for('show_case', case_id=case_id))
+#         if form.validate_on_submit():
+#             comment = Comment(text=form.text.data, author=current_user, case_id=case_id)
+#             db.session.add(comment)
+#             db.session.commit()
+#             flash('Your comment has been published.')
+#         return redirect(url_for('show_case', case_id=case_id))
 
 
 @app.before_request

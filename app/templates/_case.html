@@ -1,3 +1,10 @@
+{% block styles %}
+<style>
+    #actions {
+        padding-left: 20%;
+    }
+</style>
+{% endblock %}
 <table class="table table-hover">
     <tr valign="top">
         <td width="60px">
@@ -14,14 +21,14 @@
 
 
         <td>
-            <a href="{{ url_for('user', username=case.author.username) }}">
+
                 {{ case.timestamp.strftime('%B %d, %Y') }}
-            </a>
+
             <br/>
-            {{ case.title }}
+         <a href=" {{ url_for('show_case', case_id=case.id) }}">    {{ case.title }}  </a>
         </td>
 
-        <td style="padding-left:20%;">
+        <td id="actions">
             <a class="btn btn-primary" href="#"> Edit Case </a>
             <a class="btn btn-danger" href="#"> Delete Case </a>
 

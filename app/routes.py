@@ -25,6 +25,12 @@ def index():
     #return render_template('index.html', title="MediConsult", cases=cases.items)
     return render_template('index.html', title="MediConsult")
 
+@app.route('/')
+@app.route('/about')
+def about():
+
+    return render_template('about.html', title="MediConsult")
+
 @app.route('/explore')
 @login_required
 def explore():
@@ -48,7 +54,7 @@ def show_case(case_id):
             )
             db.session.add(comment)
             db.session.commit()
-            flash('Your Comment Added')
+            flash('Your Comment has been Added')
             return redirect(url_for('show_case', case_id=case.id))
         comments = case.comments.order_by(Comment.timestamp.desc())
         return render_template('show_case.html', title=case.title, case=case, form=form, comments=comments)

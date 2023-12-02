@@ -65,3 +65,12 @@
 .case-back-link:hover {
 	text-decoration: underline;
 }
+
+.comments {
+	background-color: #F8F8F8;
+	margin-top: 5rem;
+	min-height: 15px;
+	padding: 10px;
+	margin-bottom: 10px;
+
+}

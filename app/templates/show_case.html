@@ -45,7 +45,8 @@
 
 {#</div>#}
 <div class="comment_form">
-  <form action="{{ url_for('show_case', case_id=case.id) if case else '#' }}"    {{ form.hidden_tag() }}
+  <form action="{{ url_for('show_case', case_id=case.id) }}" method="post">
+    {{ form.hidden_tag() }}
     <label for="comments">Add a comment ?</label>
     {{ form.text(class="form-control") }}
     <br>
@@ -53,9 +54,17 @@
   </form>
 </div>
 
+</br>
+<h3 style="color:#07c; "><i class="fas fa-pen"></i> Comments :</h3>
 {% for comment in comments %}
-    <p>{{ comment.author.username }}: {{ comment.text }}</p>
-{% endfor %}
+<div class="card comments">
+  <div class="card-body">
+    <h5 class="card-title">
+        <strong>{{ comment.author.username }}:</strong>
+    </h5>
+        <p class="card-text">{{ comment.text }}</p>
+  </div>
+</div>{% endfor %}
 
 
 

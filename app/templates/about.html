@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
+{% endblock %}
+
+{% block app_content %}
+<div class="container mt-5">
+
+	<header class="text-center">
+		<h1 class="display-4">About Mediconsult</h1>
+	</header>
+
+	<section>
+		<h2>Our Mission</h2>
+		<p>At Mediconsult, our mission is to revolutionize healthcare by providing accessible and innovative solutions. We strive to make medical information and consultation readily available to everyone, ensuring a healthier and more informed community.</p>
+	</section>
+
+	<section>
+		<h2>About Us</h2>
+		<p>Mediconsult is a product of dedication and passion for improving healthcare worldwide. Our team of experienced professionals in medicine, technology, and design came together with a shared vision of creating a platform that simplifies and enhances the healthcare experience.</p>
+	</section>
+
+	<section>
+		<h2>Key Features</h2>
+		<ul class="list-group">
+			<li class="list-group-item"><strong>Medical Consultation:</strong> Connect with certified healthcare professionals for personalized advice.</li>
+			<li class="list-group-item"><strong>Information Hub:</strong> Access reliable and up-to-date medical information to empower informed decisions.</li>
+			<li class="list-group-item"><strong>User-Friendly Interface:</strong> Our app is designed with simplicity and ease of use in mind to ensure a seamless experience for all users.</li>
+		</ul>
+	</section>
+
+	<section>
+		<h2>Who Am I ?</h2>
+		<div class="container">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-body">
+						<h3 class="card-title">Shaza Aly</h3>
+						<p class="card-text">As a Software Engineer and Pharmacist, I bring a unique blend of medical expertise and software engineering skills to the Mediconsult team. My background in pharmacy equips me with a deep understanding of healthcare nuances, ensuring that our platform aligns with the highest standards of medical accuracy. On the technical side, my software engineering skills contribute to the development of robust and user-friendly solutions that bridge the gap between technology and healthcare.</p>
+					</div>
+				</div>
+			</div>
+
+			<!-- Repeat the above structure for other team members -->
+
+		</div>
+	</section>
+
+	<section>
+		<h2>Contact Us</h2>
+		<p>Have questions or suggestions? We'd love to hear from you. Reach out to us at <a href="mailto:shaza.aly@gmail.com">contact@mediconsult.com</a>.</p>
+	</section>
+
+</div>
+
+
+{% endblock %}
+

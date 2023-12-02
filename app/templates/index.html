@@ -13,16 +13,21 @@
 </div>
 <div id="wallpaper"> </div>
 
-{% if current_user.is_authenticated %}
-<h1>Hi, {{ current_user.username }}!</h1>
-<h3>Do you want to add a case? <a href="{{ url_for('submit_case') }}"> Create a Case</a></h3>
-{% else %}
-<h3> Welcome to collaborative healthcare hub</h3>
-{% endif %}
 
+<div class="wallpaper_text">
+    {% if not current_user.is_authenticated %}
 
+    <p>Elevate your well-being with knowledge</p>
+    <h1>Transforming Wellness with Unity</h1>
+    <h2>Your Hub for Holistic Health</h2>
+    <p>Cultivate a healthier lifestyle through understanding</p>
 
-
+    {% else %}
+    <h1>Hi, {{ current_user.username }}!</h1>
+    <h3>Do you want to add a case?</h3>
+    <h3> <a class="btn call_to_action" href="{{ url_for('submit_case') }}"> Create a Case</a> </h3>
+    {% endif %}
+</div>
 
 
 

@@ -16,8 +16,36 @@
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background: rgba(0, 0, 0, 0.6);
+	background: rgba(0, 0, 0, 0.7);
 
+}
+
+.wallpaper_text {
+	color: white;
+	position: absolute;
+	top: 25%;
+	text-align: center;
+	line-height: 1.2rem;
+	margin-left: 25%;
+	/* font-size: 4em; */
+	line-height: 6.8rem;
+}
+
+.call_to_action {
+	padding: 0.8rem;
+	background-color: #FF8B6A;
+	color: white;
+	font-size: 20px;
+}
+
+.call_to_action:hover {
+	color: #FF8B6A;
+	background-color: white;
+}
+
+
+.cards-wrapper {
+	margin-top: -15rem;
 }
 
 .back_image {

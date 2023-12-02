@@ -32,15 +32,36 @@
 }
 
 .call_to_action {
-	padding: 0.8rem;
 	background-color: #FF8B6A;
 	color: white;
 	font-size: 20px;
+	margin-right: 0.8rem;
+
 }
 
 .call_to_action:hover {
 	color: #FF8B6A;
 	background-color: white;
+}
+
+.whatsapp {
+	background-color: #58EDCF;
+	color: #13436B;
+	font-size: 20px;
+	/
+}
+
+.whatsapp:hover {
+	color: #FF8B6A;
+	background-color: white;
+}
+
+.wallpaper_btns {
+	position: absolute;
+	top: 70%;
+	left: 30%;
+	padding: auto;
+	margin-bottom: 100px;
 }
 
 

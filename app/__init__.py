@@ -14,8 +14,7 @@ from flask_mail import Mail
 import logging
 from logging.handlers import SMTPHandler
 from flask_bootstrap import Bootstrap
-from flask_elasticsearch import FlaskElasticsearch
-
+from elasticsearch import Elasticsearch
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -25,8 +24,8 @@ migrate  = Migrate(app, db)
 login = LoginManager(app)
 login.login_view = 'login'
 Bootstrap(app)
-es = FlaskElasticsearch(app)
-
+es = Elasticsearch(hosts=[{'host': 'localhost', 'port': 9200, 'scheme': 'http'}])
+app.elasticsearch = es  # Attach Elasticsearch client to Flask app
 #if not app.debug:
 """ if app.config['MAIL_SERVER']:
         auth = None

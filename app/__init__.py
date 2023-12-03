@@ -14,6 +14,7 @@ from flask_mail import Mail
 import logging
 from logging.handlers import SMTPHandler
 from flask_bootstrap import Bootstrap
+from flask_elasticsearch import FlaskElasticsearch
 
 
 app = Flask(__name__)
@@ -24,6 +25,7 @@ migrate  = Migrate(app, db)
 login = LoginManager(app)
 login.login_view = 'login'
 Bootstrap(app)
+es = FlaskElasticsearch(app)
 
 #if not app.debug:
 """ if app.config['MAIL_SERVER']:

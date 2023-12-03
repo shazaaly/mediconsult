@@ -18,4 +18,5 @@ class Config(object):
     # images and files
     IMAGE_SUPLOAD_FOLDER = os.path.join(basedir, 'app', 'static')
     LABS_UPLOAD_FOLDER = os.path.join(basedir, 'app', 'static')
-
+    #elastic search
+    ELASTICSEARCH_URL='http://localhost:9200'

@@ -119,6 +119,7 @@ class User(UserMixin,db.Model):
 
 
 class Case(db.Model):
+    __searchable__ = ['body' ]
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(140))

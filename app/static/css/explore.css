@@ -33,10 +33,13 @@
 .case-link a {
 	color: white;
 	text-decoration: none;
+
 }
 
 .case-link a:hover {
 	text-decoration: none;
+	color: #124877;
+	background-color: white;
 }
 
 .preview {

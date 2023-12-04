@@ -18,7 +18,11 @@
         {% if user.medical_degree %} <p> Degree: {{ user.medical_degree }} </p> {% endif %}
         {% if user.speciality %} <p> Speciality: {{ user.speciality }}  </p>{% endif %}
         {% if user.licenses %} <p> Licenses: {{ user.licenses }}</p>  {% endif %}
-        {% if user.last_seen %} <p> Last Seen:  {{ user.last_seen }} </p> {% endif %}
+        {% if user.last_seen %}
+            <p >Last seen on: <span id="last_seen">{{ moment(user.last_seen).format('LLL') }}</span>
+
+            </p>
+    </p> {% endif %}
     </div>
 </div>
 
@@ -31,7 +35,7 @@
 <p>
     <form action="{{ url_for('follow', username=user.username) }}" method="post">
         {{ form.hidden_tag() }}
-        {{ form.submit(value='Follow') }}
+        {{ form.submit(value='Follow', class="follow_button") }}
     </form>
 </p>
 {% else %}

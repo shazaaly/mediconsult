@@ -23,7 +23,14 @@
 
                 </span>  {{ case.author.username if case.author }}
             </p>
-            <p class="case-date">Published at: {{ case.timestamp.strftime('%B %d, %Y') }}</p>
+            <p class="case-date">Published at:
+                {{ (case.timestamp.strftime('%B %d, %Y')) }} <br>
+                <span style="color:#2FC5CA">
+                    {{ moment(case.timestamp).fromNow() }}
+                </span>
+
+
+            </p>
             <p class="case-link">
                 <a class="btn" style="background-color:#124877;" href="{{ url_for('show_case', case_id=case.id) }}">View Case</a>
             </p>

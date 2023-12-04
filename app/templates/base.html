@@ -42,7 +42,7 @@
                     <form method="" action="">
                         {{ g.search_form.hidden_tag() }}
                         {{ g.search_form.query(class='form-control') }}
-                        {{ g.search_form.submit() }}
+                        {{ g.search_form.submit(id="search_submit") }}
                     </form>
 
 
@@ -77,8 +77,9 @@
     {% block footer %}
 
 {% endblock %}
-{% endblock %}
+{{ moment.include_moment() }}
 
+{% endblock %}
 
 
 

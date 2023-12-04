@@ -22,7 +22,7 @@
 
         <td>
 
-                {{ case.timestamp.strftime('%B %d, %Y') }}
+                {{ moment(case.timestamp).fromNow() }}
 
             <br/>
          <a href=" {{ url_for('show_case', case_id=case.id) }}">    {{ case.title }}  </a>

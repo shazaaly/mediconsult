@@ -32,3 +32,9 @@
 .edit-profile-link:hover {
 	text-decoration: underline;
 }
+
+#last_seen {
+	color: #FF6A71;
+}
+
+.follow_button {}

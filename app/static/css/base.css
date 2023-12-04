@@ -92,3 +92,19 @@ li {
 .light {
 	font-weight: lighter;
 }
+
+.search_form {
+	position: absolute;
+	left: 38%;
+	top: 16%;
+	width: 30%;
+}
+
+#submit {
+	position: absolute;
+	top: 0;
+	right: 0;
+	background-color: #387B9A;
+	height: 100%;
+	color: white;
+}

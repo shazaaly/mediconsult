@@ -1,6 +1,8 @@
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request, g
+from forms import SearchForm
+from flask import g
 import os
-from forms import LoginForm, RegisterForm, CaseForm, EditProfileForm, EmptyForm, ResetPasswordRequestForm, ResetPasswordForm, CommentForm
+from forms import LoginForm, RegisterForm, CaseForm, EditProfileForm, EmptyForm, ResetPasswordRequestForm, ResetPasswordForm, CommentForm, SearchForm
 from app import login, db
 from app.models import User, Case
 from app.models import Comment
@@ -10,6 +12,9 @@ from datetime import datetime
 from werkzeug.utils import secure_filename
 from flask_mail import Message
 from app.email import send_password_reset_email
+from app.search import add_to_index, remove_from_index, query_index
+
+from app import es
 
 
 from app import app
@@ -255,6 +260,7 @@ def submit_case():
                     labe_files_path.append(relative_path)
             case.lab_files =",".join(labe_files_path)
             db.session.add(case)
+            add_to_index('cases',case)
             db.session.commit()
             flash('Case submitted successfully!', 'success')
             return redirect(url_for('index'))
@@ -264,7 +270,14 @@ def submit_case():
     return render_template('submit_case.html', form=form, title="submit medical case")
 
 
-
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    if request.method == 'POST':
+        query = request.form['query']
+        results, total = query_index('cases', query, 1, 20)
+        cases = Case.query.filter(Case.id.in_(results)).all()
+        # Now you can pass these cases to your template
+        return render_template('search_results.html', cases=cases)
 
 @app.route('/send_email')
 def send_email():
@@ -274,26 +287,12 @@ def send_email():
     return 'Email sent!'
 
 
-# @app.route('/submit_comment/<int:case_id>', methods=['GET','POST'])
-# @login_required
-# def submit_comment(case_id):
-#     form = CommentForm()
-#     case= Case.query.filter_by(id=case_id).first()
-#     if case:
-
-#         if form.validate_on_submit():
-#             comment = Comment(text=form.text.data, author=current_user, case_id=case_id)
-#             db.session.add(comment)
-#             db.session.commit()
-#             flash('Your comment has been published.')
-#         return redirect(url_for('show_case', case_id=case_id))
-
-
 @app.before_request
 def before_request():
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
+        g.search_form = SearchForm()
 
 
 from app import routes

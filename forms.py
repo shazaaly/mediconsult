@@ -117,3 +117,7 @@ class ResetPasswordForm(FlaskForm):
 class CommentForm(FlaskForm):
     text = TextAreaField('Leave a comment', validators=[DataRequired()])
     submit = SubmitField('Submit')
+
+class SearchForm(FlaskForm):
+    query = StringField('Query', validators=[DataRequired()])
+    submit = SubmitField('Search')

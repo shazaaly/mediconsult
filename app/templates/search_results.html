@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% import 'bootstrap/wtf.html' as wtf %}
+
+
+{% block app_content %}
+  <h1>Search Results</h1>
+
+  {% if cases %}
+    <ul>
+      {% for case in cases %}
+        <li>{{ case.title }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No cases found.</p>
+  {% endif %}
+{% endblock %}

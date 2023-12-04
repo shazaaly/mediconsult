@@ -43,4 +43,6 @@ app.elasticsearch = es  # Attach Elasticsearch client to Flask app
         app.logger.addHandler(mail_handler)
 
 """
+if not es.indices.exists(index="cases"):
+    es.indices.create(index="cases")
 from app import routes, models, errors

@@ -38,6 +38,15 @@
                     <li><a href="{{ url_for('about') }}">About</a></li>
                     <li><a href="{{ url_for('explore') }}">Explore</a></li>
                 </ul>
+                <div class="search_form">
+                    <form method="POST" action="{{ url_for('search') }}">
+                        {{ g.search_form.hidden_tag() }}
+                        {{ g.search_form.query(class='form-control') }}
+                        {{ g.search_form.submit() }}
+                    </form>
+
+
+                </div>
                 <ul class="nav navbar-nav navbar-right">
                     {% if current_user.is_anonymous %}
                     <li><a href="{{ url_for('login') }}">Login</a></li>

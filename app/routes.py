@@ -12,9 +12,7 @@ from datetime import datetime
 from werkzeug.utils import secure_filename
 from flask_mail import Message
 from app.email import send_password_reset_email
-from app.search import add_to_index, remove_from_index, query_index
 
-from app import es
 
 
 from app import app
@@ -260,28 +258,14 @@ def submit_case():
                     labe_files_path.append(relative_path)
             case.lab_files =",".join(labe_files_path)
             db.session.add(case)
-            add_to_index('cases',case)
             db.session.commit()
+            print("case id is" , case.id)
             flash('Case submitted successfully!', 'success')
             return redirect(url_for('index'))
 
         except Exception as e:
             flash(f"Error: {str(e)}", 'error')
     return render_template('submit_case.html', form=form, title="submit medical case")
-
-
-@app.route('/search', methods=['GET', 'POST'])
-def search():
-    print(f"Request method: {request.method}")  # Add this line
-
-    if request.method == 'POST':
-        query = request.form['query']
-        results, total = query_index('cases', query, 1, 20)
-        print(results)
-        #cases = Case.query.filter(Case.id.in_(results)).all()
-        cases = Case.query.filter(Case.id.in_([int(id) for id in results if id is not None])).all()
-        # Now you can pass these cases to your template
-        return render_template('search_results.html', cases=cases)
 
 @app.route('/send_email')
 def send_email():

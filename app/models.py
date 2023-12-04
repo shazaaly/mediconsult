@@ -5,7 +5,6 @@ from time import time
 from werkzeug.security import generate_password_hash, check_password_hash
 from libgravatar import Gravatar
 from flask_login import UserMixin
-from app.search import add_to_index, remove_from_index, query_index
 import jwt
 
 
@@ -23,9 +22,6 @@ class Comment(db.Model):
     case_id = db.Column(db.Integer, db.ForeignKey('case.id'))
 def __repr__(self) -> str:
         return '<comment  {} >'.format(self.text)
-
-
-
 
 class User(UserMixin,db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -120,7 +116,6 @@ class User(UserMixin,db.Model):
 
 
 class Case(db.Model):
-    __searchable__ = ['title', 'question', 'chief_complaint']
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(140))

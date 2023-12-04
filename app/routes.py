@@ -272,10 +272,14 @@ def submit_case():
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
+    print(f"Request method: {request.method}")  # Add this line
+
     if request.method == 'POST':
         query = request.form['query']
         results, total = query_index('cases', query, 1, 20)
-        cases = Case.query.filter(Case.id.in_(results)).all()
+        print(results)
+        #cases = Case.query.filter(Case.id.in_(results)).all()
+        cases = Case.query.filter(Case.id.in_([int(id) for id in results if id is not None])).all()
         # Now you can pass these cases to your template
         return render_template('search_results.html', cases=cases)
 

@@ -16,6 +16,7 @@ def remove_from_index(index, model):
 	app.elasticsearch.delete(index=index, id=model.id)
 
 def query_index(index, query, page, per_page):
+    print("query_index function called")
     if not app.elasticsearch:
         return [], 0
     search_query = {
@@ -26,6 +27,7 @@ def query_index(index, query, page, per_page):
             }
         }
     }
+    print(f"Search query: {search_query}")  # Add this line
     search = app.elasticsearch.search(index=index, body=search_query)
-    ids = [int(hit['_source']['id']) for hit in search['hits']['hits']]  # get the database ID from the document
+    ids = [int(hit['_source']['id']) for hit in search['hits']['hits'] if hit['_source']['id'] is not None]
     return ids, search['hits']['total']['value']

@@ -7,6 +7,9 @@ from libgravatar import Gravatar
 from flask_login import UserMixin
 import jwt
 
+from sqlalchemy_utils.types import TSVectorType
+from sqlalchemy_searchable import make_searchable
+
 
 """ِAssosiation Table for secondary"""
 followers= db.Table('followers',
@@ -116,6 +119,7 @@ class User(UserMixin,db.Model):
 
 
 class Case(db.Model):
+    __tablename__ = 'case'
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(140))
@@ -131,7 +135,6 @@ class Case(db.Model):
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     comments = db.relationship('Comment', backref='case', lazy='dynamic')
-
 
     def get_images(self):
         """get images of case """

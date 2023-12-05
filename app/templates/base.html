@@ -39,7 +39,7 @@
                     <li><a href="{{ url_for('explore') }}">Explore</a></li>
                 </ul>
                 <div class="search_form">
-                    <form method="" action="">
+                    <form method="GET" action="/search">
                         {{ g.search_form.hidden_tag() }}
                         {{ g.search_form.query(class='form-control') }}
                         {{ g.search_form.submit(id="search_submit") }}

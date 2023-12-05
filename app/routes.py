@@ -12,6 +12,8 @@ from datetime import datetime
 from werkzeug.utils import secure_filename
 from flask_mail import Message
 from app.email import send_password_reset_email
+from sqlalchemy_searchable import search
+
 
 
 
@@ -259,7 +261,6 @@ def submit_case():
             case.lab_files =",".join(labe_files_path)
             db.session.add(case)
             db.session.commit()
-            print("case id is" , case.id)
             flash('Case submitted successfully!', 'success')
             return redirect(url_for('index'))
 
@@ -267,6 +268,51 @@ def submit_case():
             flash(f"Error: {str(e)}", 'error')
     return render_template('submit_case.html', form=form, title="submit medical case")
 
+
+
+
+@app.route('/edit_case/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit_case(id):
+    case=Case.query.get_or_404(id)
+    if case.user_id != current_user.id:
+        abort(403)
+        flash('You only can edit your cases!')
+    form= CaseForm()
+    if form.validate_on_submit():
+        case.title = form.title.data
+        case.patient_age = form.patient_age.data
+        case.patient_sex = form.patient_sex.data
+        case.chief_complaint = form.chief_complaint.data
+        case.medical_history = form.medical_history.data
+        case.current_medications = form.current_medications.data
+
+        if form.image_file.data:
+            image_file = save_image(form.image_file.data)  # Implement this function
+            case.image_file = image_file
+        if form.lab_file.data:
+            lab_file = save_lab_file(form.lab_file.data)  # Implement this function
+            case.lab_file = lab_file
+        db.session.commit()
+        flash('Your case has been updated!', 'success')
+        return redirect(url_for('edit_case.html', id=case.id))
+    elif request.method == 'GET':
+        title=case.title
+        patient_age=case.patient_age
+        patient_sex=case.patient_sex
+        chief_complaint=case.chief_complaint
+        medical_history=case.medical_history
+        current_medications=case.current_medications
+        return render_template('edit_case.html', title='Edit Case', form=form)
+
+
+
+
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    query = request.args.get('query')
+    cases = db.session.query(Case).filter(Case.title.like(f'%{query}%')).all()
+    return render_template('explore.html', cases=cases)
 @app.route('/send_email')
 def send_email():
     msg = Message('Hello', recipients=['recipient@example.com'])

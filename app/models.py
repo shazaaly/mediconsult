@@ -7,7 +7,6 @@ from libgravatar import Gravatar
 from flask_login import UserMixin
 import jwt
 
-from sqlalchemy_utils.types import TSVectorType
 from sqlalchemy_searchable import make_searchable
 
 
@@ -18,6 +17,7 @@ followers= db.Table('followers',
 )
 
 class Comment(db.Model):
+
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.Text)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
@@ -119,7 +119,7 @@ class User(UserMixin,db.Model):
 
 
 class Case(db.Model):
-    __tablename__ = 'case'
+    #__tablename__ = 'case'
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(140))

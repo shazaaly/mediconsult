@@ -3,36 +3,40 @@
     #actions {
         padding-left: 20%;
     }
+    .highlight {
+        background-color: red;
+    }
+
 </style>
 {% endblock %}
 <table class="table table-hover">
-    <tr valign="top">
-        <td width="60px">
+    <div class="row">
+        <div class="col-md-2" width="60px">
             <a href= "{{ url_for('user', username=case.author.username) }}"  >
             </a>
 
             {% for case in cases %}
-                <span class="badge"> {{ loop.index }} </span>
+            {% if highlighted==case.id %}
+            <span class="badge"> Edited </span>
+            {% endif %}
             {% endfor %}
 
+        </div>
 
-
-        </td>
-
-
-        <td>
-
+        <div class="col-md-4">
                 {{ moment(case.timestamp).fromNow() }}
 
             <br/>
-         <a href=" {{ url_for('show_case', case_id=case.id) }}">    {{ case.title }}  </a>
-        </td>
+         <a href=" {{ url_for('show_case', case_id=case.id) }}">
+                {{ case.title }}
 
-        <td id="actions">
-            <a class="btn btn-primary" href="#"> Edit Case </a>
+        </a>
+        </div>
+
+        <div class="col-md-6" id="actions">
+            <a class="btn btn-primary" href="{{ url_for('edit_case', id=case.id) }}">Edit Case</a>
             <a class="btn btn-danger" href="#"> Delete Case </a>
 
-
-        </td>
-    </tr>
+        </div>
+    </div>
 </table>

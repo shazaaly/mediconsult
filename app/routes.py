@@ -155,7 +155,10 @@ def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     cases = Case.query.filter_by(user_id = current_user.id)
     form=EmptyForm()
-    return render_template('user.html', user=user, cases=cases, form=form)
+    highlighted=request.args.get('highlighted')
+    if highlighted is not None:
+        highlighted = int(highlighted)
+    return render_template('user.html', user=user, cases=cases, form=form, highlighted=highlighted)
 
 
 
@@ -286,27 +289,18 @@ def edit_case(id):
         case.chief_complaint = form.chief_complaint.data
         case.medical_history = form.medical_history.data
         case.current_medications = form.current_medications.data
-
-        if form.image_file.data:
-            image_file = save_image(form.image_file.data)  # Implement this function
-            case.image_file = image_file
-        if form.lab_file.data:
-            lab_file = save_lab_file(form.lab_file.data)  # Implement this function
-            case.lab_file = lab_file
         db.session.commit()
         flash('Your case has been updated!', 'success')
-        return redirect(url_for('edit_case.html', id=case.id))
-    elif request.method == 'GET':
-        title=case.title
-        patient_age=case.patient_age
-        patient_sex=case.patient_sex
-        chief_complaint=case.chief_complaint
-        medical_history=case.medical_history
-        current_medications=case.current_medications
-        return render_template('edit_case.html', title='Edit Case', form=form)
+        return redirect(url_for('user', username=current_user.username,highlighted=case.id))
 
-
-
+    if request.method == 'GET':
+        form.title.data = case.title
+        form.patient_age.data = case.patient_age
+        form.patient_sex.data = case.patient_sex
+        form.chief_complaint.data = case.chief_complaint
+        form.medical_history.data = case.medical_history
+        form.current_medications.data = case.current_medications
+    return render_template('edit_case.html', title='Edit Case', form=form, case=case)
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
@@ -323,11 +317,13 @@ def send_email():
 
 @app.before_request
 def before_request():
+    g.search_form = SearchForm()
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
-        g.search_form = SearchForm()
 
-
+@app.context_processor
+def inject_search_form():
+    return {'search_form': SearchForm()}
 from app import routes
 

@@ -1,0 +1,43 @@
+{# <footer class="navbar navbar-default">
+	<div class="container">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="{{ url_for('index') }}" style="color:green; margin-left:5px">MediConsult</a>
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="{{ url_for('index') }}">Home</a></li>
+				<li><a href="{{ url_for('explore') }}">Explore</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="mailto:shaza.aly@gmail.com">Email Me</a></li>
+				<li><a href="https://wa.me/201062794773">WhatsApp Me</a></li>
+			</ul>
+		</div>
+	</div>
+</footer>  #}
+
+<footer class="footer">
+    <div class="row footer_wrap container">
+        <div class="col-md-2">
+            <a class="footer-link" href="{{ url_for('index') }}">MediConsult</a>
+        </div>
+        <div class="col-md-4">
+            <ul class="footer-list">
+                <li><a class="footer-link" href="{{ url_for('index') }}">Home</a></li>
+                <li><a class="footer-link" href="{{ url_for('explore') }}">Explore</a></li>
+            </ul>
+        </div>
+
+        <div class="col-md-2">
+        <ul class="footer-list">
+            <li><a class="footer-link" href="mailto:shaza.aly@gmail.com">Email Me</a></li>
+        </ul>
+        </div>
+
+        <div class="col-md-2">
+            <ul class="footer-list">
+                <li><a class="footer-link" href="https://wa.me/201062794773">WhatsApp Me</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>

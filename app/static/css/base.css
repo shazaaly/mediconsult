@@ -9,11 +9,17 @@ p {
 
 body {
 	margin: 0 !important;
+	padding: 0;
 	font-family: 'Lato', sans-serif;
 	line-height: 1.6;
 	font-size: 16px;
 	min-height: 100vh;
 	overflow-x: hidden;
+
+}
+
+a {
+	text-decoration: none;
 
 }
 
@@ -107,4 +113,26 @@ li {
 	background-color: #387B9A;
 	height: 100%;
 	color: white;
+}
+
+.footer {
+	background-color: #f8f9fa;
+	padding: 20px 0;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+}
+
+.footer-link {
+	color: green;
+	text-decoration: none;
+}
+
+.footer-list {
+	list-style: none;
+	padding-left: 0;
+}
+
+.footer-list li {
+	margin-bottom: 10px;
 }

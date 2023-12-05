@@ -25,7 +25,7 @@
 }
 
 .edit-profile-link {
-	color: #07c;
+	color: white;
 	text-decoration: none;
 }
 
@@ -36,5 +36,3 @@
 #last_seen {
 	color: #FF6A71;
 }
-
-.follow_button {}

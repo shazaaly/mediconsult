@@ -24,6 +24,14 @@ a {
 
 }
 
+/* display navbar over the dark overlay */
+.navbar-collapse {
+	position: relative;
+	z-index: 1000;
+}
+
+
+
 .row {
 	display: flex;
 	flex-wrap: wrap;
@@ -138,4 +146,23 @@ li {
 
 .footer-list li {
 	margin-bottom: 10px;
+}
+
+/* Media Query */
+@media (min-width: 576px) and (max-width: 991px) {
+
+	.navbar-nav>li>a {
+		color: #ff6d70 !important;
+		z-index: 1000;
+	}
+
+	.navbar-brand {
+		display: none;
+	}
+
+	#logo {
+		width: 20%;
+
+
+	}
 }

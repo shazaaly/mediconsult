@@ -20,8 +20,10 @@
             <p class="case-complaint">Case: {{ case.chief_complaint }}</p>
             <p class="case-author">
                 <span>Author:
+                    <a href="{{ url_for('user', username=case.author.username) }}">  {{ case.author.username if case.author }} </a>
 
-                </span>  {{ case.author.username if case.author }}
+
+                </span>
             </p>
             <p class="case-date">Published at:
                 {{ (case.timestamp.strftime('%B %d, %Y')) }} <br>

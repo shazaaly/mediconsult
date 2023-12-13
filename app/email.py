@@ -4,6 +4,15 @@ from flask import render_template
 from app import mail, app
 
 def send_password_reset_email(user):
+    """
+    Sends a password reset email to the specified user.
+
+    Parameters:
+    - user: The user object for whom the password reset email is being sent.
+
+    Returns:
+    - None
+    """
     token = user.generate_token()  # Assuming you have this method in your User model
     msg = Message('[MediConsult] Reset Your Password',
                   sender=app.config['ADMIN'][0],

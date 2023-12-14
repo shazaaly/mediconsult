@@ -149,7 +149,7 @@ li {
 }
 
 /* Media Query */
-@media (min-width: 576px) and (max-width: 991px) {
+@media (min-width: 370px) and (max-width: 991px) {
 
 	.navbar-nav>li>a {
 		color: #ff6d70 !important;

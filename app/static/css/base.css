@@ -57,9 +57,9 @@ a {
 
 #logo {
 	width: 10%;
-	position: absolute;
-	top: -24px;
-	left: 20px;
+	position: fixed;
+	top: -6%;
+	left: 2%;
 	margin-right: 3px;
 	z-index: 10;
 }

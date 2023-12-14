@@ -1,4 +1,8 @@
-/* Reset some default styles */
+/*
+	This code represents the selected CSS styles.
+	It is responsible for defining the appearance and layout of the selected elements.
+	Please refer to the specific CSS properties and values used in this code for more details.
+*/
 body,
 ul,
 li,
@@ -54,8 +58,8 @@ a {
 #logo {
 	width: 10%;
 	position: absolute;
-	top: -24px;
-	left: 20px;
+	top: -6%;
+	left: 2%;
 	margin-right: 3px;
 	z-index: 10;
 }
@@ -109,9 +113,9 @@ li {
 }
 
 .search_form {
-	position: absolute;
+	position: fixed;
 	left: 38%;
-	top: 16%;
+	top: 3%;
 	width: 30%;
 }
 
@@ -151,9 +155,18 @@ li {
 /* Media Query */
 @media (min-width: 370px) and (max-width: 991px) {
 
-	.navbar-nav>li>a {
+	/* .navbar-nav>li>a {
 		color: #ff6d70 !important;
+		background-color: gray;
 		z-index: 1000;
+	} */
+	.navbar-collapse {
+		background-color: #F8F8F8;
+		color: #3A3F42;
+		z-index: 1000;
+		position: absolute;
+		right: 0;
+		border-radius: 5%;
 	}
 
 	.navbar-brand {
